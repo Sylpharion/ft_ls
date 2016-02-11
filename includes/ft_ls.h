@@ -10,4 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef FT_LS_H
+# DEFINE FT_LS_H
 
+# include "../includes/libft.h"
+# include <sys/types.h>
+# include <dirent.h>
+# include <unistd.h>
+# include <pwd.h>
+# include <grp.h>
+# include <attr/xattr.h>
+# include <time.h>
+# include <stdio.h>
+# include <errno.h>
+# include <string.h>
+
+
+#endif
