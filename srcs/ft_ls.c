@@ -29,9 +29,9 @@ char			**ft_nlen(struct dirent *fichierLu, DIR *rep)
 void			aff_date(struct tm tm)
 {
 	ft_putnbr(tm.tm_mon);
-	ft_putchar(' ');
+	ft_putchar('\t');
 	ft_putnbr(tm.tm_mday);
-	ft_putchar(' ');
+	ft_putchar('\t');
 	if (((double)tm.tm_hour / 10) < 1)
 		ft_putnbr(0);
 	ft_putnbr(tm.tm_hour);
@@ -39,7 +39,7 @@ void			aff_date(struct tm tm)
 	if (((double)tm.tm_min / 10) < 1)
 		ft_putnbr(0);
 	ft_putnbr(tm.tm_min);
-	ft_putchar(' ');
+	ft_putchar('\t');
 }
 
 void			aff_dir(struct dirent *fichierLu)
@@ -52,10 +52,28 @@ void			aff_id(struct passwd *pwd, struct group *grp, struct stat st)
 {
 	if ((pwd = getpwuid(st.st_uid)) != NULL)
 		ft_putstr(pwd->pw_name);
-	ft_putchar(' ');
+	ft_putchar('\t');
 	if ((grp = getgrgid(st.st_gid)) != NULL)
 		ft_putstr(grp->gr_name);
-	ft_putchar(' ');
+	ft_putchar('\t');
+}
+
+void			aff_size(struct stat st)
+{
+	ft_putnbr(st.st_size);
+	ft_putchar('\t');
+}
+void			aff_block(struct stat st)
+{
+	ft_putnbr(st.st_blocks);
+	ft_putchar('\t');
+}
+
+void			aff_mode(struct stat st)
+{
+	ft_putnbr(st.st_mode);
+	//ft_putnbr(st.st_nlink);
+	ft_putchar('\t');
 }
 
 int			main(void)
@@ -80,9 +98,12 @@ int			main(void)
 	while ((fichierLu = readdir(rep)) != NULL)
 	{
 		stat(fichierLu->d_name, &st);
-		t = st.st_ctime;
-		tm = *localtime (&t);
+		t = st.st_mtime;
+		tm = *localtime(&t);
+		aff_mode(st);
+		aff_block(st);
 		aff_id(pwd, grp, st);
+		aff_size(st);
 		aff_date(tm);
 		aff_dir(fichierLu);
 	}
