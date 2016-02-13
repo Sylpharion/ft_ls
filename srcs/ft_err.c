@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   ft_err.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smassand <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/11 15:05:18 by smassand          #+#    #+#             */
-/*   Updated: 2016/02/11 15:05:22 by smassand         ###   ########.fr       */
+/*   Created: 2016/02/13 00:29:18 by smassand          #+#    #+#             */
+/*   Updated: 2016/02/13 00:31:14 by smassand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+# include "../includes/ft_ls.h"
 
-# include "../libft/libft.h"
-# include <sys/types.h>
-# include <dirent.h>
-# include <unistd.h>
-# include <pwd.h>
-# include <grp.h>
-# include <errno.h>
-//# include <attr/xattr.h>
-# include <time.h>
-# include <stdio.h>
-# include <errno.h>
-# include <string.h>
+void		dir_error()
+{
 
-
-#endif
+}

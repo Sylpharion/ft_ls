@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ksoulard <ksoulard@student.42.fr>          +#+  +:+       +#+         #
+#   By: smassand <marvin@42.fr>                    +#+  +:+       +#+          #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/01/11 13:44:49 by ksoulard          #+#    #+#              #
-#    Updated: 2016/02/11 15:39:25 by smassand         ###   ########.fr        #
+#    Created: 2016/01/11 13:44:49 by smassand          #+#    #+#              #
+#    Updated: 2016/02/12 22:24:57 by smassand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SOURCE = 	srcs/
 
 INCLUDE =	includes/
 
-HEADER = 	ft_ls.h
+HEADER = 	libft.h
 
 FILES =		$(addprefix $(SOURCE), $(addsuffix $(EXT), $(FILE)))
 
