@@ -12,7 +12,10 @@
 
 # include "../includes/ft_ls.h"
 
-void		ft_init(t_dir **dir)
+void		ft_init(t_dir *dir)
 {
 	dir->rep = NULL;
+	dir->fichierlu = NULL;
+	dir->pwd = NULL;
+	dir->grp = NULL;
 }

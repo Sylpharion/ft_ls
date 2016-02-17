@@ -71,3 +71,15 @@ void			aff_date(struct tm tm)
 	ft_putstr(s);
 	free(s);
 }
+
+void			aff_ls(t_dir dir)
+{
+		stat(dir.fichierlu->d_name, &dir.st);
+		dir.t = dir.st.st_mtime;
+		dir.tm = *localtime(&dir.t);
+		aff_mode(dir.st);
+		aff_id(dir.pwd, dir.grp, dir.st);
+		aff_size(dir.st);
+		aff_date(dir.tm);
+		aff_name(dir.fichierlu);
+}

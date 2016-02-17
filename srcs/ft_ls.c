@@ -12,39 +12,35 @@
 
 # include "../includes/ft_ls.h"
 
-int			main(void)
+int			main(int argc, char **argv)
 {
 	t_dir	dir;
-	struct 	dirent *fichierlu = NULL; /* Déclaration d'un pointeur vers la structure dirent. */
-	time_t 	t;
-	struct 	stat st;
-	struct 	tm tm;
-	struct 	passwd *pwd = NULL;
-	struct 	group *grp = NULL;
 
-	ft_init(&dir.rep);
+	if (argc > 2)
+		exit(1);
+	ft_init(&dir);		
 	dir.rep = opendir("./"); /* Ouverture d'un dossier */
+
 	ft_putstr("Le dossier a ete ouvert avec succes\n");
 	ft_putstr("**************************************\n\n");
 	
 	if (dir.rep == NULL) /* Si le dossier n'a pas pu être ouvert */
 		exit(1);
-	rewinddir(dir.rep);
-	while ((fichierlu = readdir(dir.rep)) != NULL)
+	//gere_param(argv[1]);
+	while ((dir.fichierlu = readdir(dir.rep)) != NULL)
 	{
-	
-		stat(fichierlu->d_name, &st);
-		t = st.st_mtime;
-		tm = *localtime(&t);
-		aff_mode(st);
-		aff_id(pwd, grp, st);
-		aff_size(st);
-		aff_date(tm);
-		aff_name(fichierlu);
+		if (argv[1])
+			aff_ls(dir);
+		//else if (argv[2] == "-R")
+		else
+		{
+			ft_putstr(dir.fichierlu->d_name);
+			ft_putchar('\t');
+		}	
 	}
 	if (closedir(dir.rep) == -1) /* S'il y a eu un souci avec la fermeture */
-	exit(-1);
+		exit(-1);
 	ft_putstr("\n**************************************\n");
-	puts("Le dossier a ete ferme avec succes");
+	ft_putstr("Le dossier a ete ferme avec succes\n");
 	return (0);
 }

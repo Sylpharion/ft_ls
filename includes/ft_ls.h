@@ -30,9 +30,15 @@ typedef struct 		s_dir
 {
 	int				curseur;
 	DIR 			*rep;
-
+	time_t 			t;
+	struct dirent 	*fichierlu;
+	struct stat		st;
+	struct tm 		tm;
+	struct passwd 	*pwd;
+	struct group 	*grp;
 }					t_dir;
 
+void			aff_ls(t_dir dir);
 void			aff_size(struct stat st);
 void			aff_name(struct dirent *fichierlu);
 void			aff_id(struct passwd *pwd, struct group *grp, struct stat st);
@@ -42,6 +48,6 @@ void			aff_date(struct tm tm);
 char			*get_month(int month);
 char			*get_month2(char **s, int month);
 
-void			ft_init(t_dir **dir);
+void			ft_init(t_dir *dir);
 
 #endif
