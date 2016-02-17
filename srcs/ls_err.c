@@ -12,7 +12,7 @@
 
 # include "../includes/ft_ls.h"
 
-void		dir_error()
+void		ft_init(t_dir **dir)
 {
-
+	dir->rep = NULL;
 }

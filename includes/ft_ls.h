@@ -26,5 +26,22 @@
 # include <errno.h>
 # include <string.h>
 
+typedef struct 		s_dir
+{
+	int				curseur;
+	DIR 			*rep;
+
+}					t_dir;
+
+void			aff_size(struct stat st);
+void			aff_name(struct dirent *fichierlu);
+void			aff_id(struct passwd *pwd, struct group *grp, struct stat st);
+void			aff_mode(struct stat st);
+void			aff_mode2(struct stat st, int i);
+void			aff_date(struct tm tm);
+char			*get_month(int month);
+char			*get_month2(char **s, int month);
+
+void			ft_init(t_dir **dir);
 
 #endif
