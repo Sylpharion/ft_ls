@@ -18,7 +18,7 @@ EXT =		.c
 
 FLAGS =		-Wall -Wextra -Werror
 
-FILE =		ft_ls		aff_param		aff_param2		ls_err
+FILE =		ft_ls		get_param		get_param2		ls_err
 
 SOURCE = 	srcs/
 

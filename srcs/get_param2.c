@@ -51,7 +51,7 @@ char			*get_month(int month)
 	return (s);
 }
 
-void			aff_date(struct tm tm)
+char			*get_date(struct tm tm)
 {
 	char		*s;
 
@@ -67,19 +67,6 @@ void			aff_date(struct tm tm)
 	if (((double)tm.tm_min / 10) < 1)
 		ft_strcat(s, ft_itoa(0));
 	ft_strcat(s, ft_itoa(tm.tm_min));
-	ft_strcat(s, "\t");
-	ft_putstr(s);
+	return (s);
 	free(s);
-}
-
-void			aff_ls(t_dir dir)
-{
-		stat(dir.fichierlu->d_name, &dir.st);
-		dir.t = dir.st.st_mtime;
-		dir.tm = *localtime(&dir.t);
-		aff_mode(dir.st);
-		aff_id(dir.pwd, dir.grp, dir.st);
-		aff_size(dir.st);
-		aff_date(dir.tm);
-		aff_name(dir.fichierlu);
 }

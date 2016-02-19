@@ -36,18 +36,37 @@ typedef struct 		s_dir
 	struct tm 		tm;
 	struct passwd 	*pwd;
 	struct group 	*grp;
+	char			*init_mode;
 }					t_dir;
 
+typedef struct 		s_param
+{
+	char			*mode;
+	int 			link;
+	char			*usr;
+	char			*grp;
+	int 			size;
+	char			*date;
+	char			*name;
+}					t_param;
+
+typedef struct 		s_args
+{
+	int				l;
+	int				R;
+	int				a;
+	int				r;
+	int				t;
+}					t_args;
+
 void			aff_ls(t_dir dir);
-void			aff_size(struct stat st);
-void			aff_name(struct dirent *fichierlu);
-void			aff_id(struct passwd *pwd, struct group *grp, struct stat st);
-void			aff_mode(struct stat st);
-void			aff_mode2(struct stat st, int i);
-void			aff_date(struct tm tm);
+void			get_param(t_dir dir, t_param *param);
+void			aff_param(t_param param);
+char			*get_mode(struct stat st, t_dir *dir);
+char			*get_date(struct tm tm);
 char			*get_month(int month);
 char			*get_month2(char **s, int month);
 
-void			ft_init(t_dir *dir);
+void			ft_init(t_dir *dir, t_param *param, t_args *args);
 
 #endif
