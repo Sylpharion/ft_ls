@@ -32,12 +32,15 @@ int			main(int argc, char **argv)
 		}
 		exit(1);
 	}
+
+
 	while ((dir.fichierlu = readdir(dir.rep)) != NULL)
 	{
 		get_param(dir, &param);
 		if ((param.name[0] != '.') || (args.a == 1))
 			aff_param(param, args);
 	}
+
 	if (args.un == 0)
 		ft_putchar('\n');
 	if (closedir(dir.rep) == -1)
