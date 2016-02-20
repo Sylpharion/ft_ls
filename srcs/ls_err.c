@@ -35,4 +35,5 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	args->a = 0;
 	args->r = 0;
 	args->t = 0;
+	args->un = 0;
 }

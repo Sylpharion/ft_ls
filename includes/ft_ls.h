@@ -58,11 +58,12 @@ typedef struct 		s_args
 	int				a;
 	int				r;
 	int				t;
+	int 			un;
 }					t_args;
 
 void			aff_ls(t_dir dir);
 void			get_param(t_dir dir, t_param *param);
-void			aff_param(t_param param);
+void			aff_param(t_param param, t_args args);
 char			*get_mode(struct stat st, t_dir *dir);
 char			*get_date(struct tm tm);
 char			*get_month(int month);

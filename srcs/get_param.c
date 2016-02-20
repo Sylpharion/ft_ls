@@ -56,20 +56,27 @@ void		get_param(t_dir dir, t_param *param)
 	param->name = dir.fichierlu->d_name;
 }
 
-void		aff_param(t_param param)
+void		aff_param(t_param param, t_args args)
 {
-	ft_putchar('\n');
-	ft_putstr(param.mode);
-	ft_putchar('\t');
-	ft_putnbr(param.link);
-	ft_putchar('\t');
-	ft_putstr(param.usr);
-	ft_putchar('\t');
-	ft_putstr(param.grp);
-	ft_putchar('\t');
-	ft_putnbr(param.size);
-	ft_putchar('\t');
-	ft_putstr(param.date);
-	ft_putchar('\t');
+	if (args.l == 1)
+	{
+		ft_putchar('\n');
+		ft_putstr(param.mode);
+		ft_putchar('\t');
+		ft_putnbr(param.link);
+		ft_putchar('\t');
+		ft_putstr(param.usr);
+		ft_putchar('\t');
+		ft_putstr(param.grp);
+		ft_putchar('\t');
+		ft_putnbr(param.size);
+		ft_putchar('\t');
+		ft_putstr(param.date);
+		ft_putchar('\t');
+	}
 	ft_putstr(param.name);
+	if (args.un == 1)
+		ft_putchar('\n');
+	else
+		ft_putchar('\t');
 }
