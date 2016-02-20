@@ -45,7 +45,7 @@ all: 	$(EXEC) $(NAME) #norme
 
 $(EXEC):
 		@make -C $(LIB_DIR)
-		@echo "$(C_Y)$(LIB_DIR) $(C_R)		is done !$(C_W)"
+		@echo "$(C_Y)$(LIB_DIR) $(C_R)			is done !$(C_W)"
 
 $(NAME): $(OBJ)
 		@$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(EXEC)

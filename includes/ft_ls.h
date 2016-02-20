@@ -37,6 +37,7 @@ typedef struct 		s_dir
 	struct passwd 	*pwd;
 	struct group 	*grp;
 	char			*init_mode;
+	char			*path;
 }					t_dir;
 
 typedef struct 		s_param
@@ -66,6 +67,9 @@ char			*get_mode(struct stat st, t_dir *dir);
 char			*get_date(struct tm tm);
 char			*get_month(int month);
 char			*get_month2(char **s, int month);
+
+void			get_args(t_args *args, char **argv, t_dir *dir);
+void			get_args2(t_args *args, char **argv, int i);
 
 void			ft_init(t_dir *dir, t_param *param, t_args *args);
 

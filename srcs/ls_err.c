@@ -19,6 +19,8 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	dir->pwd = NULL;
 	dir->grp = NULL;
 	dir->init_mode = ft_strnew(11);
+	dir->path = (char *)malloc(sizeof(char) * 1024);
+	dir->path = "./";
 
 	param->mode = NULL;
 	param->link = 0;
