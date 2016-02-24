@@ -41,7 +41,7 @@ void		get_args2(t_args *args, char **argv, int i)
 	}
 }
 
-void		get_args(t_args *args, char **argv, t_dir *dir)
+void		get_args(t_args *args, char **argv, int argc, t_dir *dir)
 {
 	int 	i;
 
@@ -61,5 +61,20 @@ void		get_args(t_args *args, char **argv, t_dir *dir)
 			break;
 		}
 		i++;
+	}
+	if (argc > 2)
+		get_args_sup(argv, argc, dir);
+}
+
+void			get_args_sup(char **argv, int argc, t_dir *dir)
+{
+	int			i;
+
+	i = 2;
+	dir->travel = (char **)malloc(sizeof(char *) * (int)argc + 1);
+	while (argv[i])
+	{
+		dir->travel[i - 2] = (char *)malloc(sizeof(char) * ft_strlen(argv[i]));
+		dir->travel[i - 2] = argv[i];
 	}
 }

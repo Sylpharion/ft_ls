@@ -20,7 +20,7 @@ int			main(int argc, char **argv)
 
 	ft_init(&dir, &param, &args);
 	if (argc > 1)
-		get_args(&args, argv, &dir);	
+		get_args(&args, argv, argc, &dir);	
 	dir.rep = opendir(dir.path);
 	if (dir.rep == NULL && ((argv[1] && (argv[1][0] != '-')) ||
 		(*argv[1] == '-')))
@@ -31,7 +31,6 @@ int			main(int argc, char **argv)
 		exit(1);
 	}
 	aff_ls(param, args, dir, dir.path);
-	//ft_putchar('\n');
 	if (closedir(dir.rep) == -1)
 		exit(-1);
 	return (0);
