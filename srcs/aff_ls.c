@@ -24,7 +24,7 @@ void		aff_ls(t_param param, t_args args, t_dir dir, char *s)
 		if ((param.name[0] != '.') || args.a == 1)
 		{
 			aff_param(param, args);
-			if ((i % 10 == 1 && args.R == 1))
+			if (i % 10 == 1 && args.R == 1 && args.l == 0)
 				ft_putchar('\n');
 			i++;
 		}
@@ -32,7 +32,7 @@ void		aff_ls(t_param param, t_args args, t_dir dir, char *s)
 	rewinddir(dir.rep);
 	ft_putstr("\n\n");
 	if (args.R == 1)
-		aff_lsd(param, args, dir, s);
+		aff_lsd(args, dir, s);
 }
 
 void		aff_param(t_param param, t_args args)
@@ -60,24 +60,26 @@ void		aff_param(t_param param, t_args args)
 		ft_putchar('\t');
 }
 
-void		aff_lsd(t_param param, t_args args, t_dir dir, char *s)
+void		aff_lsd(t_args args, t_dir dir, char *s)
 {
 	char	*s2;
+	t_param	param2;
 
+	ft_init_param(&param2);
 	while ((dir.fichierlu = readdir(dir.rep)) != NULL)
 	{
-		get_param(dir, &param);
-		if (param.mode[0] == 'd' && param.name[0] != '.' && param.name[1] != '.')
+		get_param(dir, &param2);
+		if (param2.mode[0] == 'd' && param2.name[0] != '.' && param2.name[1] != '.')
 			{
 				s2 = (char *)malloc(sizeof(char) * (ft_strlen(s) +
-						ft_strlen(param.name) + 5));
+						ft_strlen(param2.name) + 5));
 				s2 = ft_strjoin(s2, s);
-				s2 = ft_strjoin(s2, param.name);
+				s2 = ft_strjoin(s2, param2.name);
 				s2 = ft_strjoin(s2, "/");
 				ft_putstr("./");
-				ft_putstr(param.name);
+				ft_putstr(param2.name);
 				ft_putstr(":\n");
-				aff_ls(param, args, dir, s2);
+				aff_ls(param2, args, dir, s2);
 			}
 	}
 }

@@ -37,3 +37,14 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	args->t = 0;
 	args->un = 0;
 }
+
+void		ft_init_param(t_param *param)
+{
+	param->mode = NULL;
+	param->link = 0;
+	param->usr = NULL;
+	param->grp = NULL;
+	param->size = 0;
+	param->date = NULL;
+	param->name = NULL;
+}

@@ -62,7 +62,7 @@ typedef struct 		s_args
 }					t_args;
 
 void			aff_ls(t_param param, t_args args, t_dir dir, char *s);
-void			aff_lsd(t_param param, t_args args, t_dir dir, char *s);
+void			aff_lsd(t_args args, t_dir dir, char *s);
 void			get_param(t_dir dir, t_param *param);
 void			aff_param(t_param param, t_args args);
 void			aff_param2(t_param param, t_args args);
@@ -75,5 +75,6 @@ void			get_args(t_args *args, char **argv, t_dir *dir);
 void			get_args2(t_args *args, char **argv, int i);
 
 void			ft_init(t_dir *dir, t_param *param, t_args *args);
+void			ft_init_param(t_param *param);
 
 #endif
