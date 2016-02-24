@@ -56,27 +56,61 @@ void		get_param(t_dir dir, t_param *param)
 	param->name = dir.fichierlu->d_name;
 }
 
-void		aff_param(t_param param, t_args args)
+char			*get_month2(char **s, int month)
 {
-	if (args.l == 1)
-	{
-		ft_putchar('\n');
-		ft_putstr(param.mode);
-		ft_putchar('\t');
-		ft_putnbr(param.link);
-		ft_putchar('\t');
-		ft_putstr(param.usr);
-		ft_putchar('\t');
-		ft_putstr(param.grp);
-		ft_putchar('\t');
-		ft_putnbr(param.size);
-		ft_putchar('\t');
-		ft_putstr(param.date);
-		ft_putchar('\t');
-	}
-	ft_putstr(param.name);
-	if (args.un == 1)
-		ft_putchar('\n');
-	else
-		ft_putchar('\t');
+	if (month == 7)
+		*s = "Aug";
+	else if (month == 8)
+		*s = "Sep";
+	else if (month == 9)
+		*s = "Oct";
+	else if (month == 10)
+		*s = "Nov";
+	else if (month == 11)
+		*s = "Dec";
+	return (*s);
+}
+
+char			*get_month(int month)
+{
+	char		*s;
+
+	s = ft_strnew(3);
+	if (month == 0)
+		s = "Jan";
+	else if (month == 1)
+		s = "Feb";
+	else if (month == 2)
+		s = "Mar";
+	else if (month == 3)
+		s = "Apr";
+	else if (month == 4)
+		s = "May";
+	else if (month == 5)
+		s = "Jun";
+	else if (month == 6)
+		s = "Jul";
+	else if (month > 6 && month <= 12)
+		s = get_month2(&s, month);
+	return (s);
+}
+
+char			*get_date(struct tm tm)
+{
+	char		*s;
+
+	s = ft_strnew(13);
+	ft_strcat(s, get_month(tm.tm_mon));
+	ft_strcat(s, "\t");
+	ft_strcat(s, ft_itoa(tm.tm_mday));
+	ft_strcat(s, "\t");
+	if (((double)tm.tm_hour / 10) < 1)
+		ft_strcat(s, ft_itoa(0));
+	ft_strcat(s, ft_itoa(tm.tm_hour));
+	ft_strcat(s, ":");
+	if (((double)tm.tm_min / 10) < 1)
+		ft_strcat(s, ft_itoa(0));
+	ft_strcat(s, ft_itoa(tm.tm_min));
+	return (s);
+	free(s);
 }

@@ -22,27 +22,16 @@ int			main(int argc, char **argv)
 	if (argc > 1)
 		get_args(&args, argv, &dir);	
 	dir.rep = opendir(dir.path);
-	if (dir.rep == NULL)
+	if (dir.rep == NULL && ((argv[1] && (argv[1][0] != '-')) ||
+		(*argv[1] == '-')))
 	{
-		if ((argv[1] && (argv[1][0] != '-')) || (*argv[1] == '-'))
-		{
-			ft_putstr("ft_ls: ");
-			ft_putstr(argv[1]);
-			ft_putstr(": No such file or directory\n");
-		}
+		ft_putstr("ft_ls: ");
+		ft_putstr(argv[1]);
+		ft_putstr(": No such file or directory\n");
 		exit(1);
 	}
-
-
-	while ((dir.fichierlu = readdir(dir.rep)) != NULL)
-	{
-		get_param(dir, &param);
-		if ((param.name[0] != '.') || (args.a == 1))
-			aff_param(param, args);
-	}
-
-	if (args.un == 0)
-		ft_putchar('\n');
+	aff_ls(param, args, dir, dir.path);
+	//ft_putchar('\n');
 	if (closedir(dir.rep) == -1)
 		exit(-1);
 	return (0);
