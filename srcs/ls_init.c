@@ -15,12 +15,15 @@
 void		ft_init(t_dir *dir, t_param *param, t_args *args)
 {
 	dir->rep = NULL;
-	dir->fichierlu = NULL;
+	dir->file = NULL;
 	dir->pwd = NULL;
 	dir->grp = NULL;
 	dir->init_mode = ft_strnew(11);
 	dir->path = (char *)malloc(sizeof(char) * 1024);
-	dir->path = "./";
+	dir->path = ft_strdup("./");
+	dir->travel = NULL;
+	/*dir->st = NULL;
+	dir->tm = NULL;*/
 
 	param->mode = NULL;
 	param->link = 0;
@@ -36,6 +39,25 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	args->r = 0;
 	args->t = 0;
 	args->un = 0;
+}
+
+void		ft_init_recurs(t_param *param, t_dir *dir)
+{
+	param->mode = NULL;
+	param->link = 0;
+	param->usr = NULL;
+	param->grp = NULL;
+	param->size = 0;
+	param->date = NULL;
+	param->name = NULL;
+
+	dir->rep = NULL;
+	dir->file = NULL;
+	dir->pwd = NULL;
+	dir->grp = NULL;
+	dir->init_mode = ft_strnew(11);
+	dir->path = (char *)malloc(sizeof(char) * 1024);
+	dir->travel = NULL;
 }
 
 void		ft_init_param(t_param *param)

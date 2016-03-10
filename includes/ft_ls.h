@@ -31,7 +31,7 @@ typedef struct 		s_dir
 	int				curseur;
 	DIR 			*rep;
 	time_t 			t;
-	struct dirent 	*fichierlu;
+	struct dirent 	*file;
 	struct stat		st;
 	struct tm 		tm;
 	struct passwd 	*pwd;
@@ -63,9 +63,15 @@ typedef struct 		s_args
 	int 			un;
 }					t_args;
 
-void			aff_ls(t_param param, t_args args, t_dir dir, char *s);
-void			aff_lsd(t_args args, t_dir dir, char *s);
-void			get_param(t_dir dir, t_param *param);
+/*
+ rappel :
+ --
+ *
+*/
+
+void			aff_ls(t_param param, t_args args, t_dir *dir, char *s);
+void			aff_ls_r(t_args args, t_dir dir, char *s);
+void			get_param(t_dir *dir, t_param *param, char *s);
 void			aff_param(t_param param, t_args args);
 void			aff_param2(t_param param, t_args args);
 char			*get_mode(struct stat st, t_dir *dir);
@@ -78,6 +84,7 @@ void			get_args2(t_args *args, char **argv, int i);
 void			get_args_sup(char **argv, int argc, t_dir *dir);
 
 void			ft_init(t_dir *dir, t_param *param, t_args *args);
+void			ft_init_recurs(t_param *param, t_dir *dir);
 void			ft_init_param(t_param *param);
 
 #endif

@@ -12,43 +12,31 @@
 
 #include "../includes/ft_ls.h"
 
-char			*get_month2(char **s, int month)
-{
-	if (month == 7)
-		*s = "Aug";
-	else if (month == 8)
-		*s = "Sep";
-	else if (month == 9)
-		*s = "Oct";
-	else if (month == 10)
-		*s = "Nov";
-	else if (month == 11)
-		*s = "Dec";
-	return (*s);
-}
-
 char			*get_month(int month)
 {
-	char		*s;
+	char		**s;
+	int 		i;
 
-	s = ft_strnew(3);
-	if (month == 0)
-		s = "Jan";
-	else if (month == 1)
-		s = "Feb";
-	else if (month == 2)
-		s = "Mar";
-	else if (month == 3)
-		s = "Apr";
-	else if (month == 4)
-		s = "May";
-	else if (month == 5)
-		s = "Jun";
-	else if (month == 6)
-		s = "Jul";
-	else if (month > 6 && month <= 12)
-		s = get_month2(&s, month);
-	return (s);
+	i = 0;
+	s = (char **)malloc(sizeof(char *) * 12);
+	while (i < 12)
+	{
+		s[i] = ft_strnew(3);
+		i++;
+	}
+	s[0] = "Jan";
+	s[1] = "Feb";
+	s[2] = "Mar";
+	s[3] = "Apr";
+	s[4] = "May";
+	s[5] = "Jun";
+	s[6] = "Jul";
+	s[7] = "Aug";
+	s[8] = "Sep";
+	s[9] = "Oct";
+	s[10] = "Nov";
+	s[11] = "Dec";
+	return (s[month]);
 }
 
 char			*get_date(struct tm tm)

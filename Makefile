@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#   By: smassand <marvin@42.fr>                    +#+  +:+       +#+          #
+#    By: smassand <marvin@42.fr>                   +#+  +:+       +#+          #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/11 13:44:49 by smassand          #+#    #+#              #
 #    Updated: 2016/02/12 22:24:57 by smassand         ###   ########.fr        #

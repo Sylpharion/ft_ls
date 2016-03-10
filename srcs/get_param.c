@@ -40,59 +40,51 @@ char			*get_mode(struct stat st, t_dir *dir)
     return (dir->init_mode);
 }
 
-void		get_param(t_dir dir, t_param *param)
+void		get_param(t_dir *dir, t_param *param, char *s)
 {
-	stat(dir.fichierlu->d_name, &dir.st);
-	dir.t = dir.st.st_mtime;
-	dir.tm = *localtime(&dir.t);
-	param->mode = get_mode(dir.st, &dir);
-	param->link = dir.st.st_nlink;
-	param->usr = ((dir.pwd = getpwuid(dir.st.st_uid)) != NULL)?
-					dir.pwd->pw_name : NULL;
-	param->grp = ((dir.grp = getgrgid(dir.st.st_gid)) != NULL)?
-					dir.grp->gr_name : NULL;
-	param->size = dir.st.st_size;
-	param->date = get_date(dir.tm);
-	param->name = dir.fichierlu->d_name;
-}
+	char	*s2;
 
-char			*get_month2(char **s, int month)
-{
-	if (month == 7)
-		*s = "Aug";
-	else if (month == 8)
-		*s = "Sep";
-	else if (month == 9)
-		*s = "Oct";
-	else if (month == 10)
-		*s = "Nov";
-	else if (month == 11)
-		*s = "Dec";
-	return (*s);
+	s2 = ft_strjoin(s, dir->file->d_name);
+	if (stat(s2, &dir->st) == -1)
+			ft_putendl("ERROR !!!!!!");
+	dir->t = dir->st.st_mtime;
+	dir->tm = *localtime(&dir->t);
+	param->mode = get_mode(dir->st, dir);
+	param->link = dir->st.st_nlink;
+	param->usr = ((dir->pwd = getpwuid(dir->st.st_uid)) != NULL)?
+					dir->pwd->pw_name : "root";
+	param->grp = ((dir->grp = getgrgid(dir->st.st_gid)) != NULL)?
+					dir->grp->gr_name : "wheel";
+	param->size = dir->st.st_size;
+	param->date = get_date(dir->tm);
+	param->name = dir->file->d_name;
 }
 
 char			*get_month(int month)
 {
-	char		*s;
+	char		**s;
+	int 		i;
 
-	s = ft_strnew(3);
-	if (month == 0)
-		s = "Jan";
-	else if (month == 1)
-		s = "Feb";
-	else if (month == 2)
-		s = "Mar";
-	else if (month == 3)
-		s = "Apr";
-	else if (month == 4)
-		s = "May";
-	else if (month == 5)
-		s = "Jun";
-	else if (month == 6)
-		s = "Jul";
-	else if (month > 6 && month <= 12)
-		s = get_month2(&s, month);
-	return (s);
+	i = 0;
+	s = (char **)malloc(sizeof(char *) * 12);
+	while (i < 12)
+	{
+		s[i] = ft_strnew(3);
+		i++;
+	}
+	s[0] = "Jan";
+	s[1] = "Feb";
+	s[2] = "Mar";
+	s[3] = "Apr";
+	s[4] = "May";
+	s[5] = "Jun";
+	s[6] = "Jul";
+	s[7] = "Aug";
+	s[8] = "Sep";
+	s[9] = "Oct";
+	s[10] = "Nov";
+	s[11] = "Dec";
+	return (s[month]);
 }
 
 char			*get_date(struct tm tm)
@@ -112,5 +104,4 @@ char			*get_date(struct tm tm)
 		ft_strcat(s, ft_itoa(0));
 	ft_strcat(s, ft_itoa(tm.tm_min));
 	return (s);
-	free(s);
 }

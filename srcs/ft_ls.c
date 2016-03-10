@@ -30,8 +30,6 @@ int			main(int argc, char **argv)
 		ft_putstr(": No such file or directory\n");
 		exit(1);
 	}
-	aff_ls(param, args, dir, dir.path);
-	if (closedir(dir.rep) == -1)
-		exit(-1);
+	aff_ls(param, args, &dir, dir.path);
 	return (0);
 }
