@@ -22,6 +22,7 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	dir->path = (char *)malloc(sizeof(char) * 1024);
 	dir->path = ft_strdup("./");
 	dir->travel = NULL;
+	dir->check_err = 0;
 	/*dir->st = NULL;
 	dir->tm = NULL;*/
 
@@ -58,6 +59,7 @@ void		ft_init_recurs(t_param *param, t_dir *dir)
 	dir->init_mode = ft_strnew(11);
 	dir->path = (char *)malloc(sizeof(char) * 1024);
 	dir->travel = NULL;
+	dir->check_err = 0;
 }
 
 void		ft_init_param(t_param *param)

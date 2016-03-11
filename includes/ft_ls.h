@@ -40,6 +40,7 @@ typedef struct 		s_dir
 	char			*path;
 	int 			nb_args;
 	char			**travel;
+	int 			check_err;
 }					t_dir;
 
 typedef struct 		s_param
@@ -78,10 +79,10 @@ char			*get_mode(struct stat st, t_dir *dir);
 char			*get_date(struct tm tm);
 char			*get_month(int month);
 char			*get_month2(char **s, int month);
+void			ls_err(t_dir dir, char *s);
 
 void			get_args(t_args *args, char **argv, int argc, t_dir *dir);
 void			get_args2(t_args *args, char **argv, int i);
-void			get_args_sup(char **argv, int argc, t_dir *dir);
 
 void			ft_init(t_dir *dir, t_param *param, t_args *args);
 void			ft_init_recurs(t_param *param, t_dir *dir);

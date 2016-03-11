@@ -45,16 +45,15 @@ void		get_param(t_dir *dir, t_param *param, char *s)
 	char	*s2;
 
 	s2 = ft_strjoin(s, dir->file->d_name);
-	if (stat(s2, &dir->st) == -1)
-			ft_putendl("ERROR !!!!!!");
+	stat(s2, &dir->st);
 	dir->t = dir->st.st_mtime;
 	dir->tm = *localtime(&dir->t);
 	param->mode = get_mode(dir->st, dir);
 	param->link = dir->st.st_nlink;
 	param->usr = ((dir->pwd = getpwuid(dir->st.st_uid)) != NULL)?
-					dir->pwd->pw_name : "root";
+					dir->pwd->pw_name : NULL;
 	param->grp = ((dir->grp = getgrgid(dir->st.st_gid)) != NULL)?
-					dir->grp->gr_name : "wheel";
+					dir->grp->gr_name : NULL;
 	param->size = dir->st.st_size;
 	param->date = get_date(dir->tm);
 	param->name = dir->file->d_name;
