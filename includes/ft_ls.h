@@ -38,7 +38,7 @@ typedef struct 		s_dir
 	struct group 	*grp;
 	char			*init_mode;
 	char			*path;
-	int 			nb_args;
+	int 			check_opt;
 	char			**travel;
 	int 			check_err;
 }					t_dir;
@@ -56,6 +56,8 @@ typedef struct 		s_param
 
 typedef struct 		s_args
 {
+	int 			argcpy;
+	char 			**argvpy;
 	int				l;
 	int				R;
 	int				a;
@@ -66,10 +68,11 @@ typedef struct 		s_args
 
 /*
  rappel :
- --
+ -- ok
  *
 */
 
+void			verif_ls(t_param param, t_dir dir, t_args args, int argc);
 void			aff_ls(t_param param, t_args args, t_dir *dir, char *s);
 void			aff_ls_r(t_args args, t_dir dir, char *s);
 void			get_param(t_dir *dir, t_param *param, char *s);
@@ -83,6 +86,7 @@ void			ls_err(t_dir dir, char *s);
 
 void			get_args(t_args *args, char **argv, int argc, t_dir *dir);
 void			get_args2(t_args *args, char **argv, int i);
+void			get_args_sup(char **argv, int argc, t_dir *dir);
 
 void			ft_init(t_dir *dir, t_param *param, t_args *args);
 void			ft_init_recurs(t_param *param, t_dir *dir);

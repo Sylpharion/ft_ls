@@ -19,12 +19,11 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	dir->pwd = NULL;
 	dir->grp = NULL;
 	dir->init_mode = ft_strnew(11);
-	dir->path = (char *)malloc(sizeof(char) * 1024);
+	dir->path = (char *)malloc(sizeof(char) * 5);
 	dir->path = ft_strdup("./");
 	dir->travel = NULL;
+	dir->check_opt = 0;
 	dir->check_err = 0;
-	/*dir->st = NULL;
-	dir->tm = NULL;*/
 
 	param->mode = NULL;
 	param->link = 0;
@@ -40,6 +39,8 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	args->r = 0;
 	args->t = 0;
 	args->un = 0;
+	args->argcpy = 0;
+	args->argvpy = NULL;
 }
 
 void		ft_init_recurs(t_param *param, t_dir *dir)
@@ -60,6 +61,7 @@ void		ft_init_recurs(t_param *param, t_dir *dir)
 	dir->path = (char *)malloc(sizeof(char) * 1024);
 	dir->travel = NULL;
 	dir->check_err = 0;
+	dir->check_opt = 0;
 }
 
 void		ft_init_param(t_param *param)
@@ -71,4 +73,26 @@ void		ft_init_param(t_param *param)
 	param->size = 0;
 	param->date = NULL;
 	param->name = NULL;
+}
+
+void		ls_err(t_dir dir, char *s)
+{
+	dir.check_err = errno;
+	ft_putstr("ft_ls: ");
+	ft_putstr(s);
+	if (dir.check_err == EACCES)
+		ft_putstr(": Permission denied\n");
+	else if (dir.check_err == EBADF)
+		ft_putstr(": Bad file descriptor\n");
+	else if (dir.check_err == EMFILE)
+		ft_putstr(": Too many file descriptors in use by process\n");
+	else if (dir.check_err == ENFILE)
+		ft_putstr(": Too many files are currently open in the system\n");
+	else if (dir.check_err == ENOENT)
+		ft_putstr(": No such file or directory\n");
+	else if (dir.check_err == ENOMEM)
+		ft_putstr(": Insufficient memory to complete the operation\n");
+	else if (dir.check_err == ENOTDIR)
+		ft_putstr(": is not a directory\n");
+	exit(1);
 }

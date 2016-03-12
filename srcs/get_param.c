@@ -44,7 +44,10 @@ void		get_param(t_dir *dir, t_param *param, char *s)
 {
 	char	*s2;
 
-	s2 = ft_strjoin(s, dir->file->d_name);
+	s2 = ft_strdup(s);
+	if (s[ft_strlen(s)] != '/')
+		s2 = ft_strjoin(s2, "/");
+	s2 = ft_strjoin(s2, dir->file->d_name);
 	stat(s2, &dir->st);
 	dir->t = dir->st.st_mtime;
 	dir->tm = *localtime(&dir->t);
