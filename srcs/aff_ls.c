@@ -77,8 +77,10 @@ void		aff_ls_r(t_args args, t_dir dir, char *s)
 				&& param2.name[1] && param2.name[1] != '.' && args.a == 1))
 			{
 				s2 = (char *)malloc(sizeof(char) * (ft_strlen(s) +
-						ft_strlen(param2.name) + 5));
+						ft_strlen(param2.name) + 2));
 				s2 = ft_strjoin(s2, s);
+				if (s2[ft_strlen(s2)] != '/' && s[0] != '/' && s[ft_strlen(s)] != '/')
+					s2 = ft_strjoin(s2, "/");
 				s2 = ft_strjoin(s2, param2.name);
 				s2 = ft_strjoin(s2, "/");
 				ft_putstr(s);
