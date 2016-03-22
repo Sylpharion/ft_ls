@@ -77,16 +77,50 @@ void		aff_ls_r(t_args args, t_dir dir, char *s)
 				&& param2.name[1] && param2.name[1] != '.' && args.a == 1))
 			{
 				s2 = (char *)malloc(sizeof(char) * (ft_strlen(s) +
-						ft_strlen(param2.name) + 2));
-				s2 = ft_strjoin(s2, s);
-				if (s2[ft_strlen(s2)] != '/' && s[0] != '/' && s[ft_strlen(s)] != '/')
-					s2 = ft_strjoin(s2, "/");
+						ft_strlen(param2.name) + 3));
+				s2 = ft_strdup(s);
+				//if (s2[ft_strlen(s2)] != '/')
+			  	s2 = ft_strjoin(s2, "/");
 				s2 = ft_strjoin(s2, param2.name);
+				//if (s2[ft_strlen(s2)] != '/')
 				s2 = ft_strjoin(s2, "/");
-				ft_putstr(s);
-				ft_putstr(param2.name);
-				ft_putstr(":\n");
+				//ft_putname(s, param2.name);
+				ft_scotch(ft_putname(s, param2.name));
+				// s2 = ft_scotch(s2);
+				// ft_putstr("toto + toto = ");
+				// ft_putendl(s2);
+				// ft_putchar('\n');
 				aff_ls(param2, args, &dir, s2);
+				free(s2);
 			}
 	}
+}
+
+char		*ft_putname(char *s, char *s2)
+{
+	char *s3 = (char *)malloc(sizeof(char) * (ft_strlen(s) +
+				ft_strlen(s2) + 5));
+	s3 = ft_strcat(s3, s);
+	if (s[ft_strlen(s) - 1] != '/' && s2[0] != '/')
+		s3 = ft_strcat(s3, "/");
+	s3 = ft_strcat(s3, s2);
+	s3 = ft_strcat(s3, ":");
+	return (s3);
+}
+
+void		ft_scotch(char *s2)
+{
+	int i = 0;
+	int j = 0;
+	char *s = (char *)malloc(sizeof(char) * ft_strlen(s2));
+
+	while (s2[i])
+	{
+		s[j] = s2[i];
+		if (s2[i] == '/' && s2[i + 1] == '/')
+			i++;
+		i++;
+		j++;
+	}
+	ft_putendl(s);
 }

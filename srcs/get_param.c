@@ -44,10 +44,12 @@ void		get_param(t_dir *dir, t_param *param, char *s)
 {
 	char	*s2;
 
+	s2 = (char *)malloc(sizeof(char) * (ft_strlen(s) +
+			ft_strlen(dir->file->d_name) + 2));
 	s2 = ft_strdup(s);
-	if (s[ft_strlen(s)] != '/')
+	if (s[ft_strlen(s) - 1] != '/')
 		s2 = ft_strjoin(s2, "/");
-	s2 = ft_strjoin(s2, dir->file->d_name);
+	s2 = ft_strcat(s2, dir->file->d_name);
 	stat(s2, &dir->st);
 	dir->t = dir->st.st_mtime;
 	dir->tm = *localtime(&dir->t);
@@ -60,6 +62,7 @@ void		get_param(t_dir *dir, t_param *param, char *s)
 	param->size = dir->st.st_size;
 	param->date = get_date(dir->tm);
 	param->name = dir->file->d_name;
+	free(s2);
 }
 
 char			*get_month(int month)

@@ -58,7 +58,7 @@ void		ft_init_recurs(t_param *param, t_dir *dir)
 	dir->pwd = NULL;
 	dir->grp = NULL;
 	dir->init_mode = ft_strnew(11);
-	dir->path = (char *)malloc(sizeof(char) * 1024);
+	dir->path = NULL;
 	dir->travel = NULL;
 	dir->check_err = 0;
 	dir->check_opt = 0;
@@ -77,7 +77,8 @@ void		ft_init_param(t_param *param)
 
 void		ls_err(t_dir dir, char *s)
 {
-	dir.check_err = errno;
+	if (errno)
+		dir.check_err = errno;
 	ft_putstr("ft_ls: ");
 	ft_putstr(s);
 	if (dir.check_err == EACCES)
@@ -94,5 +95,7 @@ void		ls_err(t_dir dir, char *s)
 		ft_putstr(": Insufficient memory to complete the operation\n");
 	else if (dir.check_err == ENOTDIR)
 		ft_putstr(": is not a directory\n");
+	else
+		exit(1);
 	exit(1);
 }
