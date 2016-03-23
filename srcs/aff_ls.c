@@ -84,7 +84,8 @@ void		aff_ls_r(t_args args, t_dir dir, char *s)
 			  		s2 = ft_strjoin(s2, "/");
 				s2 = ft_strjoin(s2, param2.name);
 				s2 = ft_strjoin(s2, "/");
-				ft_scotch(ft_putname(s, param2.name));
+				ft_putendl(s2);
+				//ft_scotch(ft_putname(s, param2.name));
 				aff_ls(param2, args, &dir, s2);
 				free(s2);
 			}
@@ -99,9 +100,9 @@ char		*ft_putname(char *s, char *s2)
 				ft_strlen(s2)));
 	s3 = ft_strdup(s);
 	if (s[ft_strlen(s) - 1] != '/' && s2[0] != '/')
-		s3 = ft_strjoin(s3, "/");
-	s3 = ft_strjoin(s3, s2);
-	s3 = ft_strjoin(s3, ":");
+		s3 = ft_strcat(s3, "/");
+	s3 = ft_strcat(s3, s2);
+	s3 = ft_strcat(s3, ":");
 	return (s3);
 }
 
