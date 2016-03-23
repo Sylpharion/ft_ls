@@ -70,6 +70,8 @@ typedef struct 		s_args
  rappel :
  -- ok
  *
+ r
+ t
 */
 
 void			verif_ls(t_param param, t_dir dir, t_args args, int argc);

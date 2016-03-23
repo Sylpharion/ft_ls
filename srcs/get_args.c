@@ -71,18 +71,19 @@ void			get_args_sup(char **argv, int argc, t_dir *dir)
 	int			i;
 
 	i = 2;
-	dir->travel = (char **)malloc(sizeof(char *) * argc);
+	dir->travel = (char **)malloc(sizeof(char *) * argc + 5);
 	while (dir->check_opt == 1? argv[i]: argv[i - 1])
 	{
 		if (dir->check_opt == 1)
 		{
-			dir->travel[i - 2] = (char *)malloc(sizeof(char) * ft_strlen(argv[i]));
+			dir->travel[i - 2] = (char *)malloc(sizeof(char) *
+				ft_strlen(argv[i]) + 1);
 			dir->travel[i - 2] = argv[i];
 		}
 		else
 		{
 			dir->travel[i - 2] = (char *)malloc(sizeof(char) *
-				ft_strlen(argv[i - 1]));
+				ft_strlen(argv[i - 1]) + 1);
 			dir->travel[i - 2] = argv[i - 1];
 		}
 		i++;
