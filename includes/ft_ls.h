@@ -70,6 +70,9 @@ typedef struct 		s_args
  rappel :
  -- ok
  *
+ l  ok
+ R  ok
+ a  ok
  r
  t
 */
@@ -94,8 +97,5 @@ void			get_args_sup(char **argv, int argc, t_dir *dir);
 void			ft_init(t_dir *dir, t_param *param, t_args *args);
 void			ft_init_recurs(t_param *param, t_dir *dir);
 void			ft_init_param(t_param *param);
-
-char			*ft_putname(char *s, char *s2);
-void			ft_scotch(char *s2);
 
 #endif

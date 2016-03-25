@@ -30,11 +30,8 @@ void		aff_ls(t_param param, t_args args, t_dir *dir, char *s)
 	}
 	// if (args.r == 1 || args.t == 1)
 	// 	aff_sort_param();
-	closedir(dir->rep);
+	rewinddir(dir->rep);
 	ft_putstr("\n\n");
-	dir->rep = opendir(s);
-	if (dir->rep == NULL)
-		ls_err(*dir, s);
 	while ((args.R == 1) && ((dir->file = readdir(dir->rep)) != NULL))
 		aff_ls_r(args, *dir, s);
 }
@@ -77,48 +74,15 @@ void		aff_ls_r(t_args args, t_dir dir, char *s)
 			|| (param2.name[0] == '.' && param2.name[1] != '/'
 				&& param2.name[1] && param2.name[1] != '.' && args.a == 1))
 			{
-				s2 = (char *)malloc(sizeof(char) * (ft_strlen(s) +
-						ft_strlen(param2.name) + 3));
+				s2 = ft_strnew(ft_strlen(s) + ft_strlen(param2.name) + 3);
 				s2 = ft_strdup(s);
 				if (s[ft_strlen(s) - 1] != '/')
 			  		s2 = ft_strjoin(s2, "/");
 				s2 = ft_strjoin(s2, param2.name);
 				s2 = ft_strjoin(s2, "/");
 				ft_putendl(s2);
-				//ft_scotch(ft_putname(s, param2.name));
 				aff_ls(param2, args, &dir, s2);
-				free(s2);
+				//free(s2);
 			}
 	}
-}
-
-char		*ft_putname(char *s, char *s2)
-{
-	char 	*s3;
-
-	s3 = (char *)malloc(sizeof(char) * (ft_strlen(s) +
-				ft_strlen(s2)));
-	s3 = ft_strdup(s);
-	if (s[ft_strlen(s) - 1] != '/' && s2[0] != '/')
-		s3 = ft_strcat(s3, "/");
-	s3 = ft_strcat(s3, s2);
-	s3 = ft_strcat(s3, ":");
-	return (s3);
-}
-
-void		ft_scotch(char *s2)
-{
-	int i = 0;
-	int j = 0;
-	char *s = (char *)malloc(sizeof(char) * ft_strlen(s2));
-
-	while (s2[i])
-	{
-		s[j] = s2[i];
-		if (s2[i] == '/' && s2[i + 1] == '/')
-			i++;
-		i++;
-		j++;
-	}
-	ft_putendl(s);
 }
