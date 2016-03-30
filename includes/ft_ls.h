@@ -75,6 +75,7 @@ typedef struct 		s_args
  a  ok
  r
  t
+ 1  ok
 */
 
 void			verif_ls(t_param param, t_dir dir, t_args args, int argc);

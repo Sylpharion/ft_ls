@@ -46,26 +46,24 @@ void		get_param(t_dir *dir, t_param *param, char *s)
 
 	ft_init_param(param);
 	s2 = ft_strnew(ft_strlen(s) + ft_strlen(dir->file->d_name) + 200);
-	s2 = ft_strdup(s);
+	s2 = ft_strcat(s2, s);
 	if (s[ft_strlen(s) - 1] != '/')
 		ft_strcat(s2, "/");
 	ft_strcat(s2, dir->file->d_name);
-	//ft_putendl(s2);
 	lstat(s2, &dir->st);
 	dir->t = dir->st.st_mtime;
 	dir->tm = *localtime(&dir->t);
 	param->mode = get_mode(dir->st, dir);
 	param->link = dir->st.st_nlink;
 	param->usr = ((dir->pwd = getpwuid(dir->st.st_uid)) != NULL)?
-					dir->pwd->pw_name : NULL;
+					dir->pwd->pw_name : "root";
 	param->grp = ((dir->grp = getgrgid(dir->st.st_gid)) != NULL)?
-					dir->grp->gr_name : NULL;
+					dir->grp->gr_name : "wheel";
 	param->size = dir->st.st_size;
 	param->date = get_date(dir->tm);
 	//param->date = ctime(&dir->t);
 	param->name = dir->file->d_name;
-	if (s2)
-		free(s2);
+	free(s2);
 }
 
 char			*get_month(int month)

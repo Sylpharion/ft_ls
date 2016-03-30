@@ -16,7 +16,10 @@ void		aff_ls(t_param param, t_args args, t_dir *dir, char *s)
 {
 	dir->rep = opendir(s);
 	if (dir->rep == NULL)
+	{
 		ls_err(*dir, s);
+		return ;
+	}
 	while ((dir->file = readdir(dir->rep)) != NULL)
 	{
 		get_param(dir, &param, s);
@@ -34,6 +37,7 @@ void		aff_ls(t_param param, t_args args, t_dir *dir, char *s)
 	ft_putstr("\n\n");
 	while ((args.R == 1) && ((dir->file = readdir(dir->rep)) != NULL))
 		aff_ls_r(args, *dir, s);
+	closedir(dir->rep);
 }
 
 void		aff_param(t_param param, t_args args)
@@ -75,14 +79,15 @@ void		aff_ls_r(t_args args, t_dir dir, char *s)
 				&& param2.name[1] && param2.name[1] != '.' && args.a == 1))
 			{
 				s2 = ft_strnew(ft_strlen(s) + ft_strlen(param2.name) + 3);
-				s2 = ft_strdup(s);
+				s2 = ft_strcat(s2, s);
 				if (s[ft_strlen(s) - 1] != '/')
 			  		s2 = ft_strjoin(s2, "/");
 				s2 = ft_strjoin(s2, param2.name);
+				ft_putstr(s2);
+				ft_putstr(":\n");
 				s2 = ft_strjoin(s2, "/");
-				ft_putendl(s2);
 				aff_ls(param2, args, &dir, s2);
-				//free(s2);
+				free(s2);
 			}
 	}
 }
