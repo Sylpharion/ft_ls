@@ -12,6 +12,20 @@
 
 # include "../includes/ft_ls.h"
 
+void		init_args(t_args *args, char **argv, int argc, int i)
+{
+	if (argc > 2)
+	{
+
+	}
+	else
+	{
+		
+	}
+
+
+}
+
 void		get_args2(t_args *args, char **argv, int i)
 {
 	args->l = (argv[1][i] == 'l')? 1 : args->l;
