@@ -12,111 +12,110 @@
 
 # include "../includes/ft_ls.h"
 
-void		init_args(t_args *args, char **argv, int argc, int i)
+void		init_args(t_args *args, char **argv, int argc, t_dir *dir)
 {
-	if (argc > 2)
+	int 	j;
+
+	j = 1;
+	while (argv[j])
 	{
-
+		if (argv[j][0] == '-' && argv[j][1] && dir->check_opt == 0)
+			get_args(args, argv, j);
+		else
+		{
+			dir->path = ft_strdup(argv[j]);
+			dir->travel = (char **)malloc(sizeof(char *) * argc - j);
+			dir->check_travel = argc - j;
+			dir->travel = get_args_sup(argv, argc, j);
+			return ;
+		}
+		j++;
 	}
-	else
-	{
-		
-	}
-
-
 }
 
-void		get_args2(t_args *args, char **argv, int i)
+void		get_args(t_args *args, char **argv, int j)
 {
-	args->l = (argv[1][i] == 'l')? 1 : args->l;
-	args->R = (argv[1][i] == 'R')? 1 : args->R;
-	args->a = (argv[1][i] == 'a')? 1 : args->a;
-	args->r = (argv[1][i] == 'r')? 1 : args->r;
-	args->t = (argv[1][i] == 't')? 1 : args->t;
-	args->un = (argv[1][i] == '1')? 1 : args->un;
-	if ((argv[1][i] != 'l' && argv[1][i] != 'R' && argv[1][i] != 'a' &&
-		argv[1][i] != 'r' && argv[1][i] != 't' && argv[1][i] != '1' &&
-		argv[1][i] != 'g') && (ft_strcmp(argv[1], "--") != 0))
+	int 	i;
+
+	i = 1;
+	while(argv[j][i])
+	{
+		get_args2(args, argv, i, j);
+		i++;
+	}
+}
+
+void		get_args2(t_args *args, char **argv, int i, int j)
+{
+	args->l = (argv[j][i] == 'l')? 1 : args->l;
+	args->R = (argv[j][i] == 'R')? 1 : args->R;
+	args->a = (argv[j][i] == 'a')? 1 : args->a;
+	args->r = (argv[j][i] == 'r')? 1 : args->r;
+	args->t = (argv[j][i] == 't')? 1 : args->t;
+	args->un = (argv[j][i] == '1')? 1 : args->un;
+	if ((argv[j][i] != 'l' && argv[j][i] != 'R' && argv[j][i] != 'a' &&
+		argv[j][i] != 'r' && argv[j][i] != 't' && argv[j][i] != '1' &&
+		argv[j][i] != 'g') && (ft_strcmp(argv[j], "--") != 0))
 	{
 		ft_putstr("ft_ls: illegal option -- ");
-		ft_putchar(argv[1][i]);
+		ft_putchar(argv[j][i]);
 		ft_putstr("\nusage: ft_ls [-lRart1] [file ...]\n");
 		exit(1);
 	}
 	i = 0;
 	if (args->l == 1 && args->un == 1)
 	{
-		while (argv[1][i])
+		while (argv[j][i])
 		{
-			args->l = (argv[1][i] == 'l')? 1 : 0;
-			args->un = (argv[1][i] == '1')? 1 : 0;
+			args->l = (argv[j][i] == 'l')? 1 : 0;
+			args->un = (argv[j][i] == '1')? 1 : 0;
 			i++;
 		}
 	}
 }
 
-void		get_args(t_args *args, char **argv, int argc, t_dir *dir)
+char		**get_args_sup(char **argv, int argc, int j)
+{
+	char	**s2;
+	int 	i;
+	int 	k;
+
+	k = 0;
+	i = 0;
+	s2 = (char **)malloc(sizeof(char *) * argc);
+	while (j < argc)
+	{
+		s2[k] = ft_strnew(ft_strlen(argv[j]));
+		i = 0;
+		while (argv[j][i])
+		{
+			s2[k][i] = argv[j][i];
+			i++;
+		}
+		j++;
+		k++;
+	}
+	return (s2);
+}
+
+void		verif_ls(t_param param, t_dir dir, t_args args)
 {
 	int 	i;
 
 	i = 0;
-	while(argv[1][i])
+	if (dir.check_travel > 1)
 	{
-		if ((argv[1][0] == '-') && argv[1][1])
+		while (i < dir.check_travel)
 		{
-			dir->check_opt = 1;
-			if (i == 0)
-				i++;
-			get_args2(args, argv, i);
+			if (dir.check_travel > 1)
+			{
+				ft_putstr(dir.travel[i]);
+				ft_putstr(":\n");
+			}
+			aff_ls(param, args, &dir, dir.travel[i]);
+			i++;
 		}
-		else
-		{
-			dir->path = ft_strdup(argv[1]);
-			break;
-		}
-		i++;
 	}
-	if (argc > 2)
-		get_args_sup(argv, argc, dir);
-}
-
-void			get_args_sup(char **argv, int argc, t_dir *dir)
-{
-	int			i;
-
-	i = 2;
-	dir->travel = (char **)malloc(sizeof(char *) * argc + 5);
-	while (dir->check_opt == 1? argv[i]: argv[i - 1])
-	{
-		if (dir->check_opt == 1)
-		{
-			dir->travel[i - 2] = (char *)malloc(sizeof(char) *
-				ft_strlen(argv[i]) + 1);
-			dir->travel[i - 2] = argv[i];
-		}
-		else
-		{
-			dir->travel[i - 2] = (char *)malloc(sizeof(char) *
-				ft_strlen(argv[i - 1]) + 1);
-			dir->travel[i - 2] = argv[i - 1];
-		}
-		i++;
-	}
-}
-
-void		verif_ls(t_param param, t_dir dir, t_args args, int argc)
-{
-	int 	i;
-
-	i = 0;
-	while (dir.check_opt == 1? i < (argc - 2): i < (argc - 1))
-	{
-		if (dir.check_opt == 1? argc > 3: argc > 2)
-		{
-			ft_putstr(dir.travel[i]);
-			ft_putstr(":\n");
-		}
-		aff_ls(param, args, &dir, dir.travel[i]);
-		i++;
-	}
+	else
+		aff_ls(param, args, &dir, dir.path);
 }

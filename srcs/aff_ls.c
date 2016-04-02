@@ -81,7 +81,7 @@ void		aff_ls_r(t_args args, t_dir dir, char *s)
 				s2 = ft_strnew(ft_strlen(s) + ft_strlen(param2.name) + 3);
 				s2 = ft_strcat(s2, s);
 				if (s[ft_strlen(s) - 1] != '/')
-			  		s2 = ft_strjoin(s2, "/");
+					s2 = ft_strjoin(s2, "/");
 				s2 = ft_strjoin(s2, param2.name);
 				ft_putstr(s2);
 				ft_putstr(":\n");

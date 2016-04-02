@@ -19,7 +19,7 @@ EXT =		.c
 FLAGS =		-Wall -Wextra -Werror
 
 FILE =		ft_ls		get_param		ls_init		get_args \
-			aff_ls
+			aff_ls		get_sort
 
 SOURCE = 	srcs/
 

@@ -41,6 +41,7 @@ typedef struct 		s_dir
 	int 			check_opt;
 	char			**travel;
 	int 			check_err;
+	int				check_travel;
 }					t_dir;
 
 typedef struct 		s_param
@@ -56,8 +57,6 @@ typedef struct 		s_param
 
 typedef struct 		s_args
 {
-	int 			argcpy;
-	char 			**argvpy;
 	int				l;
 	int				R;
 	int				a;
@@ -78,7 +77,7 @@ typedef struct 		s_args
  1  ok
 */
 
-void			verif_ls(t_param param, t_dir dir, t_args args, int argc);
+void			verif_ls(t_param param, t_dir dir, t_args args);
 void			aff_ls(t_param param, t_args args, t_dir *dir, char *s);
 void			aff_ls_r(t_args args, t_dir dir, char *s);
 void			get_param(t_dir *dir, t_param *param, char *s);
@@ -91,11 +90,12 @@ char			*get_month2(char **s, int month);
 
 void			ls_err(t_dir dir, char *s);
 
-void			get_args(t_args *args, char **argv, int argc, t_dir *dir);
-void			get_args2(t_args *args, char **argv, int i);
-void			get_args_sup(char **argv, int argc, t_dir *dir);
+void			get_args(t_args *args, char **argv, int j);
+void			get_args2(t_args *args, char **argv, int i, int j);
+char			**get_args_sup(char **argv, int argc, int j);
 
 void			ft_init(t_dir *dir, t_param *param, t_args *args);
+void			init_args(t_args *args, char **argv, int argc, t_dir *dir);
 void			ft_init_recurs(t_param *param, t_dir *dir);
 void			ft_init_param(t_param *param);
 

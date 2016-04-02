@@ -23,6 +23,7 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	ft_strcat(dir->path, "./");
 	dir->travel = NULL;
 	dir->check_opt = 0;
+	dir->check_travel = 0;
 	dir->check_err = 0;
 
 	param->mode = NULL;
@@ -39,8 +40,6 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	args->r = 0;
 	args->t = 0;
 	args->un = 0;
-	args->argcpy = 0;
-	args->argvpy = NULL;
 }
 
 void		ft_init_recurs(t_param *param, t_dir *dir)
@@ -62,6 +61,7 @@ void		ft_init_recurs(t_param *param, t_dir *dir)
 	dir->travel = NULL;
 	dir->check_err = 0;
 	dir->check_opt = 0;
+	dir->check_travel = 0;
 }
 
 void		ft_init_param(t_param *param)
@@ -94,7 +94,4 @@ void		ls_err(t_dir dir, char *s)
 		ft_putstr(": Insufficient memory to complete the operation\n");
 	else if (dir.check_err == ENOTDIR)
 		ft_putstr(": is not a directory\n");
-	// else
-	// 	exit(1);
-	// exit(1);
 }
