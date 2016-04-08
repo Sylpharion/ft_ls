@@ -12,7 +12,7 @@
 
 # include "../includes/ft_ls.h"
 
-void		init_args(t_args *args, char **argv, int argc, t_dir *dir)
+void		ft_init_args(t_args *args, char **argv, int argc, t_dir *dir)
 {
 	int 	j;
 
@@ -26,7 +26,7 @@ void		init_args(t_args *args, char **argv, int argc, t_dir *dir)
 			dir->path = ft_strdup(argv[j]);
 			dir->travel = (char **)malloc(sizeof(char *) * argc - j);
 			dir->check_travel = argc - j;
-			dir->travel = get_args_sup(argv, argc, j);
+			dir->travel = get_args_sup(argv, argc, j, dir);
 			return ;
 		}
 		j++;
@@ -54,8 +54,8 @@ void		get_args2(t_args *args, char **argv, int i, int j)
 	args->t = (argv[j][i] == 't')? 1 : args->t;
 	args->un = (argv[j][i] == '1')? 1 : args->un;
 	if ((argv[j][i] != 'l' && argv[j][i] != 'R' && argv[j][i] != 'a' &&
-		argv[j][i] != 'r' && argv[j][i] != 't' && argv[j][i] != '1' &&
-		argv[j][i] != 'g') && (ft_strcmp(argv[j], "--") != 0))
+		argv[j][i] != 'r' && argv[j][i] != 't' && argv[j][i] != '1')
+		&& (ft_strcmp(argv[j], "--") != 0))
 	{
 		ft_putstr("ft_ls: illegal option -- ");
 		ft_putchar(argv[j][i]);
@@ -74,7 +74,7 @@ void		get_args2(t_args *args, char **argv, int i, int j)
 	}
 }
 
-char		**get_args_sup(char **argv, int argc, int j)
+char		**get_args_sup(char **argv, int argc, int j, t_dir *dir)
 {
 	char	**s2;
 	int 	i;
@@ -83,6 +83,7 @@ char		**get_args_sup(char **argv, int argc, int j)
 	k = 0;
 	i = 0;
 	s2 = (char **)malloc(sizeof(char *) * argc);
+	dir->check_args = argc - j;
 	while (j < argc)
 	{
 		s2[k] = ft_strnew(ft_strlen(argv[j]));
@@ -109,8 +110,11 @@ void		verif_ls(t_param param, t_dir dir, t_args args)
 		{
 			if (dir.check_travel > 1)
 			{
-				ft_putstr(dir.travel[i]);
-				ft_putstr(":\n");
+				if (dir.check_args > 1)
+				{
+					ft_putstr(dir.travel[i]);
+					ft_putstr(":\n");
+				}
 			}
 			aff_ls(param, args, &dir, dir.travel[i]);
 			i++;

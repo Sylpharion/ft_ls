@@ -22,9 +22,12 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	dir->path = ft_strnew(2);
 	ft_strcat(dir->path, "./");
 	dir->travel = NULL;
+	dir->nb_file = 0;
+	dir->nb_file_a = 0;
 	dir->check_opt = 0;
 	dir->check_travel = 0;
 	dir->check_err = 0;
+	dir->check_args = 0;
 
 	param->mode = NULL;
 	param->link = 0;
@@ -59,9 +62,12 @@ void		ft_init_recurs(t_param *param, t_dir *dir)
 	dir->init_mode = ft_strnew(11);
 	dir->path = NULL;
 	dir->travel = NULL;
+	dir->nb_file = 0;
+	dir->nb_file_a = 0;
 	dir->check_err = 0;
 	dir->check_opt = 0;
 	dir->check_travel = 0;
+	dir->check_args = 0;
 }
 
 void		ft_init_param(t_param *param)

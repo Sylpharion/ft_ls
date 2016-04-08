@@ -45,7 +45,7 @@ void		get_param(t_dir *dir, t_param *param, char *s)
 	char	*s2;
 
 	ft_init_param(param);
-	s2 = ft_strnew(ft_strlen(s) + ft_strlen(dir->file->d_name) + 200);
+	s2 = ft_strnew(ft_strlen(s) + ft_strlen(dir->file->d_name) + 2);
 	s2 = ft_strcat(s2, s);
 	if (s[ft_strlen(s) - 1] != '/')
 		ft_strcat(s2, "/");
@@ -56,9 +56,9 @@ void		get_param(t_dir *dir, t_param *param, char *s)
 	param->mode = get_mode(dir->st, dir);
 	param->link = dir->st.st_nlink;
 	param->usr = ((dir->pwd = getpwuid(dir->st.st_uid)) != NULL)?
-					dir->pwd->pw_name : "root";
+					dir->pwd->pw_name : NULL;
 	param->grp = ((dir->grp = getgrgid(dir->st.st_gid)) != NULL)?
-					dir->grp->gr_name : "wheel";
+					dir->grp->gr_name : NULL;
 	param->size = dir->st.st_size;
 	param->date = get_date(dir->tm);
 	//param->date = ctime(&dir->t);

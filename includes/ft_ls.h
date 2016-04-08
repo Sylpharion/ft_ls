@@ -28,7 +28,8 @@
 
 typedef struct 		s_dir
 {
-	int				curseur;
+	int				nb_file;
+	int 			nb_file_a;
 	DIR 			*rep;
 	time_t 			t;
 	struct dirent 	*file;
@@ -42,6 +43,9 @@ typedef struct 		s_dir
 	char			**travel;
 	int 			check_err;
 	int				check_travel;
+	int 			check_args;
+	char 			***tab_sort;
+	char 			***tab_tmp;
 }					t_dir;
 
 typedef struct 		s_param
@@ -72,31 +76,42 @@ typedef struct 		s_args
  l  ok
  R  ok
  a  ok
- r
- t
+ r  ok
+ t	ok
  1  ok
 */
 
 void			verif_ls(t_param param, t_dir dir, t_args args);
+void			verif_ls_sort(t_param param, t_dir dir, t_args args);
+
 void			aff_ls(t_param param, t_args args, t_dir *dir, char *s);
 void			aff_ls_r(t_args args, t_dir dir, char *s);
-void			get_param(t_dir *dir, t_param *param, char *s);
 void			aff_param(t_param param, t_args args);
 void			aff_param2(t_param param, t_args args);
-char			*get_mode(struct stat st, t_dir *dir);
-char			*get_date(struct tm tm);
-char			*get_month(int month);
-char			*get_month2(char **s, int month);
+void 			aff_sort_param(t_dir *dir, int i, int j, t_args args);
+
+void			sort_param(t_param *param, t_dir *dir, t_args args, char *s);
+void			ft_sort_time(t_dir *dir);
+void 			ft_sort_reverse(t_dir *dir, t_args args);
 
 void			ls_err(t_dir dir, char *s);
 
 void			get_args(t_args *args, char **argv, int j);
 void			get_args2(t_args *args, char **argv, int i, int j);
-char			**get_args_sup(char **argv, int argc, int j);
+char			**get_args_sup(char **argv, int argc, int j, t_dir *dir);
+void			get_param(t_dir *dir, t_param *param, char *s);
+char			*get_mode(struct stat st, t_dir *dir);
+char			*get_date(struct tm tm);
+char			*get_month(int month);
+char			*get_month2(char **s, int month);
+void			get_sort(t_param *param, t_dir *dir, char *s, t_args args);
+void 			get_time(t_dir *dir, int **t);
 
 void			ft_init(t_dir *dir, t_param *param, t_args *args);
-void			init_args(t_args *args, char **argv, int argc, t_dir *dir);
+void			ft_init_sort(t_dir *dir, t_args args);
+void			ft_init_args(t_args *args, char **argv, int argc, t_dir *dir);
 void			ft_init_recurs(t_param *param, t_dir *dir);
 void			ft_init_param(t_param *param);
+char 			***tab_init(t_dir *dir);
 
 #endif

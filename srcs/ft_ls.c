@@ -20,9 +20,14 @@ int			main(int argc, char **argv)
 	
 	ft_init(&dir, &param, &args);
 	if (argc > 1)
-		init_args(&args, argv, argc, &dir);
+		ft_init_args(&args, argv, argc, &dir);
 	if (argc > 2)
-		verif_ls(param, dir, args);
+	{
+		if (args.r == 1 || args.t == 1)
+			verif_ls_sort(param, dir, args);
+		else
+			verif_ls(param, dir, args);
+	}
 	else
 		aff_ls(param, args, &dir, dir.path);
 	return (0);
