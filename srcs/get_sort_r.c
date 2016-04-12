@@ -55,7 +55,7 @@ void		ft_init_sort(t_dir *dir, t_args args)
 				j++;
 			i++;
 		}
-		dir->nb_file = (i <= 2)? 0 : j;
+		dir->nb_file = j;
 		dir->nb_file_a = (i <= 2)? 0 : i;
 		rewinddir(dir->rep);
 		dir->tab_sort = tab_init(dir);

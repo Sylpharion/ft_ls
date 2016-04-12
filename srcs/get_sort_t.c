@@ -63,8 +63,8 @@ void		ft_sort_time(t_dir *dir)
 		i++;
 	}
 
-
-	free(dir->tab_tmp);
+	if (dir->tab_tmp)
+		free(dir->tab_tmp);
 	dir->tab_tmp = tab_init(dir);
 	i = 0;
 	while (i < dir->nb_file_a)

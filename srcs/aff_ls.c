@@ -20,12 +20,19 @@ void		aff_ls(t_param param, t_args args, t_dir *dir, char *s)
 		ls_err(*dir, s);
 		return ;
 	}
+	int i = 0;
+	while ((dir->file = readdir(dir->rep)) != NULL)
+		i++;
+	if (i <= 2)
+		return ;
+	rewinddir(dir->rep);
 	ft_init_sort(dir, args);
 	while ((dir->file = readdir(dir->rep)) != NULL)
 	{
 		get_param(dir, &param, s);
 		 if ((param.name[0] != '.') || args.a == 1)
 		 {
+		 	
 			if (args.r == 1 || args.t == 1)
 			{
 				sort_param(&param, dir, args, s);
