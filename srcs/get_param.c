@@ -23,9 +23,9 @@ char			*get_mode(struct stat st, t_dir *dir)
 	else if (S_ISFIFO(st.st_mode))
 		dir->init_mode[0] = 'p';
 	else if (S_ISLNK(st.st_mode))
-		dir->init_mode[0] = 's';
-	else if (S_ISSOCK(st.st_mode))
 		dir->init_mode[0] = 'l';
+	else if (S_ISSOCK(st.st_mode))
+		dir->init_mode[0] = 's';
 	else
 		dir->init_mode[0] = '-';
 	dir->init_mode[1] = (st.st_mode & S_IRUSR)? 'r' : '-';

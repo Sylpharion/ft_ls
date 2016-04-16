@@ -29,7 +29,7 @@ void		aff_ls(t_param param, t_args args, t_dir *dir, char *s)
 		 // aff_param(param, args);
 	}
 	//if (args.r == 1 || args.t == 1)
-	aff_sort_param(dir, 0, 0, args);
+	aff_sort_param(dir, 0, 0, args, s);
 	free(dir->tab_sort);
 	free(dir->tab_tmp);
 	rewinddir(dir->rep);

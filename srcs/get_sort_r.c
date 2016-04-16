@@ -85,9 +85,10 @@ void		get_sort(t_param *param, t_dir *dir, char *s, t_args args)
 	}
 }
 
-void 		aff_sort_param(t_dir *dir, int i, int j, t_args args)
+void 		aff_sort_param(t_dir *dir, int i, int j, t_args args, char *path)
 {
 	j = dir->nb_file_a;
+	char *s = ft_strnew(64);
 	while (i < j && dir->tab_sort[i][6])
 	{
 		if ((dir->tab_sort[i][6][0] != '.') || args.a == 1)
@@ -109,6 +110,13 @@ void 		aff_sort_param(t_dir *dir, int i, int j, t_args args)
 				ft_putchar('\t');
 			}
 			ft_putstr(dir->tab_sort[i][6]);
+			if (args.l == 1 && dir->tab_sort[i][0][0] == 'l')
+			{
+				s = ft_strjoin(path, dir->tab_sort[i][6]);
+				readlink(s, s, 200);
+				ft_putstr(" -> ");
+				ft_putstr(s);
+			}
 			if (args.un == 1 && args.l == 0)
 				ft_putchar('\n');
 			else
