@@ -32,7 +32,7 @@ void		ft_sort_time(t_dir *dir)
 	i = 0;
 	get_time(dir, t);
 
-	while (i < j)
+	while (i < dir->nb_file_a)
 	{
 		k = 0;
 		while (k < j - 1)
@@ -56,15 +56,14 @@ void		ft_sort_time(t_dir *dir)
 	while (i < dir->nb_file_a)
 	{
 		j = 0;
-		while (ft_strcmp(dir->tab_tmp[j][7], ft_itoa(t[i][0])) != 0
-			|| ft_strcmp(dir->tab_tmp[j][8], ft_itoa(t[i][1])) != 0)
+		while (dir->tab_tmp[j] && (ft_strcmp(dir->tab_tmp[j][7], ft_itoa(t[i][0])) != 0
+			|| ft_strcmp(dir->tab_tmp[j][8], ft_itoa(t[i][1])) != 0))
 			j++;
 		dir->tab_sort[i] = dir->tab_tmp[j];
 		i++;
 	}
-
-	if (dir->tab_tmp)
-		free(dir->tab_tmp);
+	
+	free(dir->tab_tmp);
 	dir->tab_tmp = tab_init(dir);
 	i = 0;
 	while (i < dir->nb_file_a)
@@ -79,8 +78,10 @@ void 		get_time(t_dir *dir, int **t)
 	int 	i;
 
 	i = 0;
-	while (i < dir->nb_file_a)
+	while (i < dir->nb_file_a && dir->tab_tmp[i])
 	{
+		// if (!dir || dir->tab_tmp == NULL || dir->tab_tmp[i] == NULL || !t || t[i] == NULL || dir->tab_tmp[i][7] == NULL)
+		// 	write(1, "dafuq\n", 6);
 		t[i][0] = ft_atoi(dir->tab_tmp[i][7]);
 		t[i][1] = ft_atoi(dir->tab_tmp[i][8]);
 		i++;

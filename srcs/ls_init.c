@@ -28,6 +28,7 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	dir->check_travel = 0;
 	dir->check_err = 0;
 	dir->check_args = 0;
+	dir->t_init = time(NULL);
 
 	param->mode = NULL;
 	param->link = 0;

@@ -6,7 +6,7 @@
 #    By: smassand <marvin@42.fr>                   +#+  +:+       +#+          #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/11 13:44:49 by smassand          #+#    #+#              #
-#    Updated: 2016/02/12 22:24:57 by smassand         ###   ########.fr        #
+#    Updated: 2016/04/16 03:59:31 by smassand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ CC =		gcc
 
 EXT =		.c
 
-FLAGS =		-Wall -Wextra -Werror -g
+FLAGS =		-g 
+# -fsanitize=address
 
 FILE =		ft_ls		get_param		ls_init		get_args \
 			aff_ls		get_sort_r		get_sort_t	get_sort

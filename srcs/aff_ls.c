@@ -20,30 +20,16 @@ void		aff_ls(t_param param, t_args args, t_dir *dir, char *s)
 		ls_err(*dir, s);
 		return ;
 	}
-	int i = 0;
-	while ((dir->file = readdir(dir->rep)) != NULL)
-		i++;
-	if (i <= 2)
-		return ;
 	rewinddir(dir->rep);
 	ft_init_sort(dir, args);
-	while ((dir->file = readdir(dir->rep)) != NULL)
+	if ((dir->file = readdir(dir->rep)) != NULL)
 	{
-		get_param(dir, &param, s);
-		 if ((param.name[0] != '.') || args.a == 1)
-		 {
-		 	
-			if (args.r == 1 || args.t == 1)
-			{
-				sort_param(&param, dir, args, s);
-				break;
-			}
-			else
-		 		aff_param(param, args);
-		}
+		//get_param(dir, &param, s);
+		sort_param(&param, dir, args, s);
+		 // aff_param(param, args);
 	}
-	if (args.r == 1 || args.t == 1)
-		aff_sort_param(dir, 0, 0, args);
+	//if (args.r == 1 || args.t == 1)
+	aff_sort_param(dir, 0, 0, args);
 	free(dir->tab_sort);
 	free(dir->tab_tmp);
 	rewinddir(dir->rep);
@@ -51,6 +37,99 @@ void		aff_ls(t_param param, t_args args, t_dir *dir, char *s)
 	while ((args.R == 1) && ((dir->file = readdir(dir->rep)) != NULL))
 		aff_ls_r(args, *dir, s);
 	closedir(dir->rep);
+}
+
+void		sort_param(t_param *param, t_dir *dir, t_args args, char *s)
+{
+	rewinddir(dir->rep);
+	get_sort(param, dir, s, args);
+	ft_sort_ascii(dir);
+	if (args.t == 1)
+		ft_sort_time(dir);
+	if (args.r == 1)
+		ft_sort_reverse(dir, args);
+}
+
+void		ft_sort_ascii(t_dir *dir)
+{
+	int 	i;
+	int 	j;
+	int 	k;
+	char 	*t;
+	char	**tmp;
+	int 	ordre;
+	
+	i = 0;
+	ordre = 0;
+	tmp = (char **)malloc(sizeof(char *) * dir->nb_file_a);
+	j = dir->nb_file_a;
+	t = ft_strnew(64);
+
+
+	while (i < dir->nb_file_a)
+	{
+		tmp[i] = ft_strnew(64);
+		i++;
+	}
+
+	i = 0;
+	while (i < dir->nb_file_a)
+	{
+		tmp[i] = ft_strdup(dir->tab_tmp[i][6]);
+		i++;
+	}
+	
+	i = 0;
+	while (i < dir->nb_file_a)//ordre == 0)
+	{
+		k = 0;
+		//ordre = 1;
+		while (k < j - 1)
+		{
+			if (strcmp(tmp[k], tmp[k + 1]) > 0)
+			{				
+				t = tmp[k];
+				tmp[k] = tmp[k + 1];
+				tmp[k + 1] = t;
+				//ordre = 0;
+			}
+			k++;
+		}
+		j--;
+		i++;
+	}
+
+	i = 0;
+	while (i < dir->nb_file_a)
+	{
+		j = 0;
+		while (dir->tab_tmp[j] && ft_strcmp(dir->tab_tmp[j][6], tmp[i]) != 0)
+			j++;
+		dir->tab_sort[i] = dir->tab_tmp[j];
+		if (dir->tab_tmp[j] == NULL)
+			dir->tab_sort[i] = dir->tab_tmp[j - 1];
+		if (dir->tab_sort[i] == NULL)
+			return ;
+			//printf("dafuq %d %d\n", i, j);
+		i++;
+	}
+	// i = -1;
+	// while (dir->tab_sort[++i])
+	// {
+	// 	j = -1;
+	// 	while (dir->tab_sort[i][++j])
+	// 		printf("%s ", dir->tab_sort[i][j]);
+	// 	printf("\n");
+	// }
+	free(dir->tab_tmp);
+	dir->tab_tmp = tab_init(dir);
+	i = 0;
+	while (i < dir->nb_file_a)
+	{
+		dir->tab_tmp[i] = dir->tab_sort[i];
+		i++;
+	}
+	
 }
 
 void		aff_param(t_param param, t_args args)

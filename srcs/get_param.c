@@ -45,8 +45,8 @@ void		get_param(t_dir *dir, t_param *param, char *s)
 	char	*s2;
 
 	ft_init_param(param);
-	s2 = ft_strnew(ft_strlen(s) + ft_strlen(dir->file->d_name) + 2);
-	s2 = ft_strcat(s2, s);
+	s2 = ft_strnew(ft_strlen(s) + ft_strlen(dir->file->d_name) + 5);
+	ft_strcat(s2, s);
 	if (s[ft_strlen(s) - 1] != '/')
 		ft_strcat(s2, "/");
 	ft_strcat(s2, dir->file->d_name);
@@ -60,7 +60,7 @@ void		get_param(t_dir *dir, t_param *param, char *s)
 	param->grp = ((dir->grp = getgrgid(dir->st.st_gid)) != NULL)?
 					dir->grp->gr_name : NULL;
 	param->size = dir->st.st_size;
-	param->date = get_date(dir->tm);
+	param->date = get_date(dir->tm, dir);
 	//param->date = ctime(&dir->t);
 	param->name = dir->file->d_name;
 	free(s2);
@@ -93,7 +93,7 @@ char			*get_month(int month)
 	return (s[month]);
 }
 
-char			*get_date(struct tm tm)
+char			*get_date(struct tm tm, t_dir *dir)
 {
 	char		*s;
 
@@ -102,12 +102,18 @@ char			*get_date(struct tm tm)
 	ft_strcat(s, "\t");
 	ft_strcat(s, ft_itoa(tm.tm_mday));
 	ft_strcat(s, "\t");
-	if (((double)tm.tm_hour / 10) < 1)
-		ft_strcat(s, ft_itoa(0));
-	ft_strcat(s, ft_itoa(tm.tm_hour));
-	ft_strcat(s, ":");
-	if (((double)tm.tm_min / 10) < 1)
-		ft_strcat(s, ft_itoa(0));
+	// if ((dir->t > dir->t_init + (60 * 60)) || (dir->t < dir->t_init
+	// 	- (60 * 60 * 24 * 31 * 6)))
+	// 	ft_strcat(s, ft_itoa(tm.tm_year));
+	// else
+	// {
+		if (((double)tm.tm_hour / 10) < 1)
+			ft_strcat(s, ft_itoa(0));
+		ft_strcat(s, ft_itoa(tm.tm_hour));
+		ft_strcat(s, ":");
+		if (((double)tm.tm_min / 10) < 1)
+			ft_strcat(s, ft_itoa(0));
+	//}
 	ft_strcat(s, ft_itoa(tm.tm_min));
 	return (s);
 }
