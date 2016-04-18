@@ -171,13 +171,13 @@ void		aff_ls_r(t_args args, t_dir dir, char *s)
 				&& param2.name[1] && param2.name[1] != '.' && args.a == 1))
 			{
 				s2 = ft_strnew(ft_strlen(s) + ft_strlen(param2.name) + 3);
-				s2 = ft_strcat(s2, s);
+				ft_strcat(s2, s);
 				if (s[ft_strlen(s) - 1] != '/')
-					s2 = ft_strjoin(s2, "/");
-				s2 = ft_strjoin(s2, param2.name);
+					ft_strcat(s2, "/");
+				ft_strcat(s2, param2.name);
 				ft_putstr(s2);
 				ft_putstr(":\n");
-				s2 = ft_strjoin(s2, "/");
+				ft_strcat(s2, "/");
 				aff_ls(param2, args, &dir, s2);
 				free(s2);
 			}

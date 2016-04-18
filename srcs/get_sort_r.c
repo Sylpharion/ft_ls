@@ -88,8 +88,9 @@ void		get_sort(t_param *param, t_dir *dir, char *s, t_args args)
 void 		aff_sort_param(t_dir *dir, int i, int j, t_args args, char *path)
 {
 	j = dir->nb_file_a;
-	char *s = ft_strnew(2000);
-	char *s2 = ft_strnew(2000);
+	char *s;
+	char *s2;
+	
 	while (i < j && dir->tab_sort[i][6])
 	{
 		if ((dir->tab_sort[i][6][0] != '.') || args.a == 1)
@@ -113,11 +114,15 @@ void 		aff_sort_param(t_dir *dir, int i, int j, t_args args, char *path)
 			ft_putstr(dir->tab_sort[i][6]);
 			if (args.l == 1 && dir->tab_sort[i][0][0] == 'l')
 			{
+				s = ft_strnew(64);
+				s2 = ft_strnew(64);
 				ft_strcat(s, path);
 				ft_strcat(s, dir->tab_sort[i][6]);
-				readlink(s, s2, 2000);
+				readlink(s, s2, 64);
 				ft_putstr(" -> ");
-				ft_putstr(s);
+				ft_putstr(s2);
+				free(s);
+				free(s2);
 			}
 			if (args.un == 1 && args.l == 0)
 				ft_putchar('\n');
@@ -126,7 +131,6 @@ void 		aff_sort_param(t_dir *dir, int i, int j, t_args args, char *path)
 		}
 		i++;
 	}
-	free(s);
 }
 
 void 		ft_sort_reverse(t_dir *dir, t_args args)
@@ -154,7 +158,7 @@ char 		***tab_init(t_dir *dir)
 	tab = (char ***)malloc(sizeof(char **) * (dir->nb_file_a + 1));
 	while (i < dir->nb_file_a)
 	{
-		tab[i] = (char **)malloc(sizeof(char *) * 9);
+		tab[i] = (char **)malloc(sizeof(char *) * 10);
 		while (j < 9)
 		{
 			tab[i][j] = ft_strnew(64);
