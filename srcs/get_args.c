@@ -112,8 +112,11 @@ void		verif_ls(t_param param, t_dir dir, t_args args)
 			{
 				if (dir.check_args > 1)
 				{
-					ft_putstr(dir.travel[i]);
-					ft_putstr(":\n");
+					if (lstat(dir.travel[i], &dir.st) != -1 && (S_ISDIR(dir.st.st_mode) == 1))
+					{
+						ft_putstr(dir.travel[i]);
+						ft_putstr(":\n");
+					}
 				}
 			}
 			aff_ls(param, args, &dir, dir.travel[i]);

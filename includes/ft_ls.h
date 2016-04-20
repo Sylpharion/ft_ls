@@ -95,7 +95,7 @@ void			ft_verif(t_dir *dir, t_param *param, t_args args, int argc, char **argv);
 
 void			aff_ls(t_param param, t_args args, t_dir *dir, char *s);
 void			aff_ls_r(t_args args, t_dir dir, char *s);
-void			aff_param(t_param param, t_args args);
+void			aff_param(t_param param, t_args args, char *s);
 void			aff_param2(t_param param, t_args args);
 void 			aff_sort_param(t_dir *dir, int i, int j, t_args args, char *path);
 
