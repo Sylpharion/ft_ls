@@ -58,6 +58,7 @@ typedef struct 		s_param
 	int 			size;
 	char			*date;
 	char			*name;
+	int				block;
 }					t_param;
 
 typedef struct 		s_args
@@ -100,6 +101,7 @@ void			aff_param2(t_param param, t_args args);
 void 			aff_sort_param(t_dir *dir, int i, int j, t_args args, char *path);
 
 void			sort_param(t_param *param, t_dir *dir, t_args args, char *s);
+int				ft_toto(int nb_file, t_dir *dir, t_args args);
 void			ft_sort_ascii(t_dir *dir);
 void			ft_sort_time(t_dir *dir);
 void 			ft_sort_reverse(t_dir *dir, t_args args);

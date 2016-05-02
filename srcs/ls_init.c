@@ -37,6 +37,7 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	param->size = 0;
 	param->date = NULL;
 	param->name = NULL;
+	param->block = 0;
 
 	args->l = 0;
 	args->R = 0;
@@ -55,6 +56,7 @@ void		ft_init_recurs(t_param *param, t_dir *dir)
 	param->size = 0;
 	param->date = NULL;
 	param->name = NULL;
+	param->block = 0;
 
 	dir->rep = NULL;
 	dir->file = NULL;
@@ -80,6 +82,7 @@ void		ft_init_param(t_param *param)
 	param->size = 0;
 	param->date = NULL;
 	param->name = NULL;
+	param->block = 0;
 }
 
 void		ls_err(t_dir dir, char *s)

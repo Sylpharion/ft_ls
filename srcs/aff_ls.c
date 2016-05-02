@@ -72,10 +72,8 @@ void		ft_sort_ascii(t_dir *dir)
 	int 	k;
 	char 	*t;
 	char	**tmp;
-	int 	ordre;
 	
 	i = 0;
-	ordre = 0;
 	tmp = (char **)malloc(sizeof(char *) * dir->nb_file_a);
 	j = dir->nb_file_a;
 
@@ -154,6 +152,9 @@ void		aff_param(t_param param, t_args args, char *s)
 	s2[i] = 0;
 	if (args.l == 1)
 	{
+		//ft_putchar('\n');
+		ft_putstr("total ");
+		ft_putendl(ft_itoa(param.block));
 		ft_putchar('\n');
 		ft_putstr(param.mode);
 		ft_putchar('\t');

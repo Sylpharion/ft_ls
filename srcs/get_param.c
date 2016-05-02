@@ -63,6 +63,7 @@ void		get_param(t_dir *dir, t_param *param, char *s)
 	param->date = get_date(dir->tm, dir);
 	//param->date = ctime(&dir->t);
 	param->name = dir->file->d_name;
+	param->block = dir->st.st_blocks;
 	free(s2);
 }
 

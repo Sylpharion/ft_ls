@@ -79,8 +79,6 @@ void 		get_time(t_dir *dir, int **t)
 	i = 0;
 	while (i < dir->nb_file_a && dir->tab_tmp[i])
 	{
-		// if (!dir || dir->tab_tmp == NULL || dir->tab_tmp[i] == NULL || !t || t[i] == NULL || dir->tab_tmp[i][7] == NULL)
-		// 	write(1, "dafuq\n", 6);
 		t[i][0] = ft_atoi(dir->tab_tmp[i][7]);
 		t[i][1] = ft_atoi(dir->tab_tmp[i][8]);
 		i++;

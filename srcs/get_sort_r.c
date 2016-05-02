@@ -78,19 +78,27 @@ void		get_sort(t_param *param, t_dir *dir, char *s, t_args args)
 		dir->tab_tmp[i][3] = ft_strdup(param->grp);
 		dir->tab_tmp[i][4] = ft_strdup(ft_itoa(param->size));
 		dir->tab_tmp[i][5] = ft_strdup(param->date);
-		dir->tab_tmp[i][6] = ft_strdup(param->name);
+		dir->tab_tmp[i][6] = ft_strcat(dir->tab_tmp[i][6], param->name);
 		dir->tab_tmp[i][7] = ft_strdup(ft_itoa(dir->t));
 		dir->tab_tmp[i][8] = ft_strdup(ft_itoa(i));
+		dir->tab_tmp[i][9] = ft_strdup(ft_itoa(param->block));
 		i++;
+
 	}
 }
 
 void 		aff_sort_param(t_dir *dir, int i, int j, t_args args, char *path)
 {
 	j = dir->nb_file_a;
-	char *s;
-	char *s2;
+	int		toto;
+	char 	*s;
+	char 	*s2;
 	
+	ft_putstr("total ");
+	// toto = (args.a == 0)? ft_toto(dir->nb_file, dir, args):
+	// 						ft_toto(dir->nb_file_a, dir, args);
+	toto = ft_toto(dir->nb_file, dir, args);
+	ft_putendl(ft_itoa(toto));
 	while (i < j && dir->tab_sort[i][6])
 	{
 		if ((dir->tab_sort[i][6][0] != '.') || args.a == 1)
@@ -98,6 +106,7 @@ void 		aff_sort_param(t_dir *dir, int i, int j, t_args args, char *path)
 			if (args.l == 1)
 			{
 				ft_putchar('\n');
+				//ft_putendl(dir->tab_sort[i][9]);
 				ft_putstr(dir->tab_sort[i][0]);
 				ft_putchar('\t');
 				ft_putstr(dir->tab_sort[i][1]);
@@ -131,6 +140,24 @@ void 		aff_sort_param(t_dir *dir, int i, int j, t_args args, char *path)
 	}
 }
 
+int			ft_toto(int nb_file, t_dir *dir, t_args args)
+{
+	int		toto;
+	int		i;
+
+	toto = 0;
+	i = dir->nb_file_a;
+	while (i > 0)
+	{
+		if ((args.a == 1) || (args.a == 0 && dir->tab_sort[i - 1][6][0] != '.'))
+			toto += ft_atoi(dir->tab_sort[i - 1][9]);
+		//ft_putendl(dir->tab_sort[i - 1][9]);
+		i--;
+	}
+	//toto = toto/512;
+	return (toto);
+}
+
 void 		ft_sort_reverse(t_dir *dir, t_args args)
 {
 	int 	i;
@@ -156,13 +183,13 @@ char 		***tab_init(t_dir *dir)
 	while (i < dir->nb_file_a)
 	{
 		j = 0;
-		tab[i] = (char **)malloc(sizeof(char *) * 10);
-		while (j < 9)
+		tab[i] = (char **)malloc(sizeof(char *) * 11);
+		while (j < 10)
 		{
 			tab[i][j] = ft_strnew(64);
 			j++;
 		}
-		tab[i][j] = NULL;
+		tab[i][j] = 0;
 		i++;
 	}
 	tab[i] = NULL;
