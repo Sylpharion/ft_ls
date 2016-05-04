@@ -29,35 +29,22 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	dir->check_err = 0;
 	dir->check_args = 0;
 	dir->t_init = time(NULL);
-
-	param->mode = NULL;
-	param->link = 0;
-	param->usr = ft_strnew(64);
-	param->grp = ft_strnew(64);
-	param->size = 0;
-	param->date = NULL;
-	param->name = NULL;
-	param->block = 0;
-
+	ft_init_param(param);
 	args->l = 0;
 	args->R = 0;
 	args->a = 0;
 	args->r = 0;
 	args->t = 0;
+	args->f = 0;
+	args->o = 0;
+	args->g = 0;
+	args->p = 0;
 	args->un = 0;
 }
 
 void		ft_init_recurs(t_param *param, t_dir *dir)
 {
-	param->mode = NULL;
-	param->link = 0;
-	param->usr = ft_strnew(64);
-	param->grp = ft_strnew(64);
-	param->size = 0;
-	param->date = NULL;
-	param->name = NULL;
-	param->block = 0;
-
+	ft_init_param(param);
 	dir->rep = NULL;
 	dir->file = NULL;
 	dir->pwd = NULL;
@@ -83,6 +70,29 @@ void		ft_init_param(t_param *param)
 	param->date = NULL;
 	param->name = NULL;
 	param->block = 0;
+}
+
+char 		***tab_init(t_dir *dir)
+{
+	int 	i;
+	int 	j;
+	char 	***tab;
+	i = 0;
+	tab = (char ***)malloc(sizeof(char **) * (dir->nb_file_a + 1));
+	while (i < dir->nb_file_a)
+	{
+		j = 0;
+		tab[i] = (char **)malloc(sizeof(char *) * 11);
+		while (j < 10)
+		{
+			tab[i][j] = ft_strnew(64);
+			j++;
+		}
+		tab[i][j] = 0;
+		i++;
+	}
+	tab[i] = NULL;
+	return (tab);
 }
 
 void		ls_err(t_dir dir, char *s)

@@ -68,6 +68,10 @@ typedef struct 		s_args
 	int				a;
 	int				r;
 	int				t;
+	int				f;
+	int				o;
+	int				g;
+	int				p;
 	int 			un;
 }					t_args;
 
@@ -82,12 +86,10 @@ typedef struct 		s_args
  t	ok
 
  1  ok
- f
- m
- o
- A
- s
- S
+ f	ok
+ o	ok
+ g  ok
+ p  ok
 */
 
 void			verif_ls(t_param param, t_dir dir, t_args args);
@@ -95,15 +97,20 @@ void			verif_ls_sort(t_param param, t_dir dir, t_args args);
 void			ft_verif(t_dir *dir, t_param *param, t_args args, int argc, char **argv);
 
 void			aff_ls(t_param param, t_args args, t_dir *dir, char *s);
+void			aff_ls2(t_dir *dir, t_param param, t_args args, char *s);
 void			aff_ls_r(t_args args, t_dir dir, char *s);
 void			aff_param(t_param param, t_args args, char *s);
+void			aff_param_l(t_param param, t_args args);
+
 void			aff_param2(t_param param, t_args args);
 void 			aff_sort_param(t_dir *dir, int i, int j, t_args args, char *path);
+void			aff_sort_param2(t_dir *dir, char *path, int i);
+void 			aff_sort_param_l(t_dir *dir, int i, t_args args);
 
 void			sort_param(t_param *param, t_dir *dir, t_args args, char *s);
 int				ft_toto(int nb_file, t_dir *dir, t_args args);
 void			ft_sort_ascii(t_dir *dir);
-void			ft_sort_time(t_dir *dir);
+void			ft_sort_time(t_dir *dir, int i, int tmp, int j);
 void 			ft_sort_reverse(t_dir *dir, t_args args);
 
 void			ls_err(t_dir dir, char *s);
@@ -116,7 +123,7 @@ char			*get_mode(struct stat st, t_dir *dir);
 char			*get_date(struct tm tm, t_dir *dir);
 char			*get_month(int month);
 char			*get_month2(char **s, int month);
-void			get_sort(t_param *param, t_dir *dir, char *s, t_args args);
+void			get_sort(t_param *param, t_dir *dir, char *s);
 void 			get_time(t_dir *dir, int **t);
 
 void			ft_init(t_dir *dir, t_param *param, t_args *args);

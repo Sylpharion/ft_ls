@@ -17,10 +17,12 @@ CC =		gcc
 EXT =		.c
 
 FLAGS =		-g 
+# -Wall -Werror -Wextra
 # -fsanitize=address
 
 FILE =		ft_ls		get_param		ls_init		get_args \
-			aff_ls		get_sort_r		get_sort_t	get_sort
+			aff_ls		get_sort_r		get_sort_t	get_sort \
+			get_sort_ascii
 
 SOURCE = 	srcs/
 

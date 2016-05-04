@@ -24,19 +24,7 @@ void		aff_ls(t_param param, t_args args, t_dir *dir, char *s)
 		}
 		else
 		{
-			dir->t = dir->st.st_mtime;
-			dir->tm = *localtime(&dir->t);
-			param.mode = get_mode(dir->st, dir);
-			param.link = dir->st.st_nlink;
-			param.usr = ((dir->pwd = getpwuid(dir->st.st_uid)) != NULL)?
-							dir->pwd->pw_name : NULL;
-			param.grp = ((dir->grp = getgrgid(dir->st.st_gid)) != NULL)?
-							dir->grp->gr_name : NULL;
-			param.size = dir->st.st_size;
-			param.date = get_date(dir->tm, dir);
-			param.name = ft_strdup(s);
-			aff_param(param, args, s);
-			ft_putchar('\n');
+			aff_ls2(dir, param, args, s);
 			return ;
 		}
 	}
@@ -44,7 +32,7 @@ void		aff_ls(t_param param, t_args args, t_dir *dir, char *s)
 	ft_init_sort(dir, args);
 	if ((dir->file = readdir(dir->rep)) != NULL)
 		sort_param(&param, dir, args, s);
-	aff_sort_param(dir, 0, 0, args, s);
+	aff_sort_param(dir, 0, dir->nb_file_a, args, s);
 	free(dir->tab_sort);
 	free(dir->tab_tmp);
 	rewinddir(dir->rep);
@@ -54,75 +42,21 @@ void		aff_ls(t_param param, t_args args, t_dir *dir, char *s)
 	closedir(dir->rep);
 }
 
-void		sort_param(t_param *param, t_dir *dir, t_args args, char *s)
+void			aff_ls2(t_dir *dir, t_param param, t_args args, char *s)
 {
-	rewinddir(dir->rep);
-	get_sort(param, dir, s, args);
-	ft_sort_ascii(dir);
-	if (args.t == 1)
-		ft_sort_time(dir);
-	if (args.r == 1)
-		ft_sort_reverse(dir, args);
-}
-
-void		ft_sort_ascii(t_dir *dir)
-{
-	int 	i;
-	int 	j;
-	int 	k;
-	char 	*t;
-	char	**tmp;
-	
-	i = 0;
-	tmp = (char **)malloc(sizeof(char *) * dir->nb_file_a);
-	j = dir->nb_file_a;
-
-	while (i < dir->nb_file_a)
-	{
-		tmp[i] = ft_strdup(dir->tab_tmp[i][6]);
-		i++;
-	}
-	
-	i = 0;
-	while (i < dir->nb_file_a)
-	{
-		k = 0;
-		while (k < j - 1)
-		{
-			if (strcmp(tmp[k], tmp[k + 1]) > 0)
-			{				
-				t = tmp[k];
-				tmp[k] = tmp[k + 1];
-				tmp[k + 1] = t;
-			}
-			k++;
-		}
-		j--;
-		i++;
-	}
-
-	i = 0;
-	while (i < dir->nb_file_a)
-	{
-		j = 0;
-		while (dir->tab_tmp[j] && ft_strcmp(dir->tab_tmp[j][6], tmp[i]) != 0)
-			j++;
-		dir->tab_sort[i] = dir->tab_tmp[j];
-		if (dir->tab_tmp[j] == NULL)
-			dir->tab_sort[i] = dir->tab_tmp[j - 1];
-		if (dir->tab_sort[i] == NULL)
-			return ;
-		i++;
-	}
-	free(dir->tab_tmp);
-	dir->tab_tmp = tab_init(dir);
-	i = 0;
-	while (i < dir->nb_file_a)
-	{
-		dir->tab_tmp[i] = dir->tab_sort[i];
-		i++;
-	}
-	
+	dir->t = dir->st.st_mtime;
+	dir->tm = *localtime(&dir->t);
+	param.mode = get_mode(dir->st, dir);
+	param.link = dir->st.st_nlink;
+	param.usr = ((dir->pwd = getpwuid(dir->st.st_uid)) != NULL)?
+					dir->pwd->pw_name : NULL;
+	param.grp = ((dir->grp = getgrgid(dir->st.st_gid)) != NULL)?
+					dir->grp->gr_name : NULL;
+	param.size = dir->st.st_size;
+	param.date = get_date(dir->tm, dir);
+	param.name = ft_strdup(s);
+	aff_param(param, args, s);
+	ft_putchar('\n');
 }
 
 void		aff_param(t_param param, t_args args, char *s)
@@ -151,30 +85,40 @@ void		aff_param(t_param param, t_args args, char *s)
 	}
 	s2[i] = 0;
 	if (args.l == 1)
-	{
-		//ft_putchar('\n');
-		ft_putstr("total ");
-		ft_putendl(ft_itoa(param.block));
-		ft_putchar('\n');
-		ft_putstr(param.mode);
-		ft_putchar('\t');
-		ft_putnbr(param.link);
-		ft_putchar('\t');
-		ft_putstr(param.usr);
-		ft_putchar('\t');
-		ft_putstr(param.grp);
-		ft_putchar('\t');
-		ft_putnbr(param.size);
-		ft_putchar('\t');
-		ft_putstr(param.date);
-		ft_putchar('\t');
-	}
+		aff_param_l(param, args);
 	ft_putstr(s2);
+	if (param.mode[0] == 'd' && args.p == 1)
+		ft_putchar('/');
 	ft_putchar('\n');
 	if (args.un == 1 && args.l == 0)
 		ft_putchar('\n');
 	else
 		ft_putchar('\t');
+}
+
+void		aff_param_l(t_param param, t_args args)
+{
+	ft_putstr("total ");
+	ft_putendl(ft_itoa(param.block));
+	ft_putchar('\n');
+	ft_putstr(param.mode);
+	ft_putchar('\t');
+	ft_putnbr(param.link);
+	ft_putchar('\t');
+	if (args.g == 0)
+	{
+		ft_putstr(param.usr);
+		ft_putchar('\t');
+	}
+	if (args.o == 0)
+	{
+		ft_putstr(param.grp);
+		ft_putchar('\t');
+	}
+	ft_putnbr(param.size);
+	ft_putchar('\t');
+	ft_putstr(param.date);
+	ft_putchar('\t');
 }
 
 void		aff_ls_r(t_args args, t_dir dir, char *s)

@@ -61,7 +61,6 @@ void		get_param(t_dir *dir, t_param *param, char *s)
 					dir->grp->gr_name : NULL;
 	param->size = dir->st.st_size;
 	param->date = get_date(dir->tm, dir);
-	//param->date = ctime(&dir->t);
 	param->name = dir->file->d_name;
 	param->block = dir->st.st_blocks;
 	free(s2);

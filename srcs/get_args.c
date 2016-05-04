@@ -52,19 +52,28 @@ void		get_args2(t_args *args, char **argv, int i, int j)
 	args->a = (argv[j][i] == 'a')? 1 : args->a;
 	args->r = (argv[j][i] == 'r')? 1 : args->r;
 	args->t = (argv[j][i] == 't')? 1 : args->t;
+	args->f = (argv[j][i] == 'f')? 1 : args->f;
+	args->o = (argv[j][i] == 'o')? 1 : args->o;
+	args->g = (argv[j][i] == 'g')? 1 : args->g;
+	args->p = (argv[j][i] == 'p')? 1 : args->p;
 	args->un = (argv[j][i] == '1')? 1 : args->un;
 	if ((argv[j][i] != 'l' && argv[j][i] != 'R' && argv[j][i] != 'a' &&
-		argv[j][i] != 'r' && argv[j][i] != 't' && argv[j][i] != '1')
-		&& (ft_strcmp(argv[j], "--") != 0))
+		argv[j][i] != 'r' && argv[j][i] != 't' && argv[j][i] != '1' &&
+		argv[j][i] != 'f' && argv[j][i] != 'o' && argv[j][i] != 'g' &&
+		argv[j][i] != 'p') && (ft_strcmp(argv[j], "--") != 0))
 	{
 		ft_putstr("ft_ls: illegal option -- ");
 		ft_putchar(argv[j][i]);
-		ft_putstr("\nusage: ft_ls [-lRart1] [file ...]\n");
+		ft_putstr("\nusage: ft_ls [-lRart1fogp] [file ...]\n");
 		exit(1);
 	}
-	i = 0;
+	if (args->f == 1)
+		args->a = 1;
+	if (args->o == 1 || args->g == 1)
+		args->l = 1;
 	if (args->l == 1 && args->un == 1)
 	{
+		i = 0;
 		while (argv[j][i])
 		{
 			args->l = (argv[j][i] == 'l')? 1 : 0;
