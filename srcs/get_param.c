@@ -28,21 +28,21 @@ char			*get_mode(struct stat st, t_dir *dir)
 		dir->init_mode[0] = 's';
 	else
 		dir->init_mode[0] = '-';
-	dir->init_mode[1] = (st.st_mode & S_IRUSR)? 'r' : '-';
-	dir->init_mode[2] = (st.st_mode & S_IWUSR)? 'w' : '-';
-	dir->init_mode[3] = (st.st_mode & S_IXUSR)? 'x' : '-';
-	dir->init_mode[4] = (st.st_mode & S_IRGRP)? 'r' : '-';
-  	dir->init_mode[5] = (st.st_mode & S_IWGRP)? 'w' : '-';
-    dir->init_mode[6] = (st.st_mode & S_IXGRP)? 'x' : '-';
-    dir->init_mode[7] = (st.st_mode & S_IROTH)? 'r' : '-';
-    dir->init_mode[8] = (st.st_mode & S_IWOTH)? 'w' : '-';
-    dir->init_mode[9] = (st.st_mode & S_IXOTH)? 'x' : '-';
-    return (dir->init_mode);
+	dir->init_mode[1] = (st.st_mode & S_IRUSR) ? 'r' : '-';
+	dir->init_mode[2] = (st.st_mode & S_IWUSR) ? 'w' : '-';
+	dir->init_mode[3] = (st.st_mode & S_IXUSR) ? 'x' : '-';
+	dir->init_mode[4] = (st.st_mode & S_IRGRP) ? 'r' : '-';
+	dir->init_mode[5] = (st.st_mode & S_IWGRP) ? 'w' : '-';
+	dir->init_mode[6] = (st.st_mode & S_IXGRP) ? 'x' : '-';
+	dir->init_mode[7] = (st.st_mode & S_IROTH) ? 'r' : '-';
+	dir->init_mode[8] = (st.st_mode & S_IWOTH) ? 'w' : '-';
+	dir->init_mode[9] = (st.st_mode & S_IXOTH) ? 'x' : '-';
+	return (dir->init_mode);
 }
 
-void		get_param(t_dir *dir, t_param *param, char *s)
+void			get_param(t_dir *dir, t_param *param, char *s)
 {
-	char	*s2;
+	char		*s2;
 
 	ft_init_param(param);
 	s2 = ft_strnew(ft_strlen(s) + ft_strlen(dir->file->d_name) + 5);
@@ -51,14 +51,14 @@ void		get_param(t_dir *dir, t_param *param, char *s)
 		ft_strcat(s2, "/");
 	ft_strcat(s2, dir->file->d_name);
 	lstat(s2, &dir->st);
+	dir->pwd = getpwuid(dir->st.st_uid);
+	dir->grp = getgrgid(dir->st.st_gid);
 	dir->t = dir->st.st_mtime;
 	dir->tm = *localtime(&dir->t);
 	param->mode = get_mode(dir->st, dir);
 	param->link = dir->st.st_nlink;
-	param->usr = ((dir->pwd = getpwuid(dir->st.st_uid)) != NULL)?
-					dir->pwd->pw_name : NULL;
-	param->grp = ((dir->grp = getgrgid(dir->st.st_gid)) != NULL)?
-					dir->grp->gr_name : NULL;
+	param->usr = (dir->pwd != NULL) ? dir->pwd->pw_name : NULL;
+	param->grp = (dir->grp != NULL) ? dir->grp->gr_name : NULL;
 	param->size = dir->st.st_size;
 	param->date = get_date(dir->tm, dir);
 	param->name = dir->file->d_name;
@@ -69,7 +69,7 @@ void		get_param(t_dir *dir, t_param *param, char *s)
 char			*get_month(int month)
 {
 	char		**s;
-	int 		i;
+	int			i;
 
 	i = 0;
 	s = (char **)malloc(sizeof(char *) * 12);
@@ -96,7 +96,7 @@ char			*get_month(int month)
 char			*get_date(struct tm tm, t_dir *dir)
 {
 	char		*s;
-	int 		i;
+	int			i;
 
 	i = tm.tm_year + 1900;
 	s = ft_strnew(13);

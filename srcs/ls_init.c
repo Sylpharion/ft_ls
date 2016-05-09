@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/ft_ls.h"
+#include "../includes/ft_ls.h"
 
 void		ft_init(t_dir *dir, t_param *param, t_args *args)
 {
@@ -22,7 +22,6 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	dir->path = ft_strnew(2);
 	ft_strcat(dir->path, "./");
 	dir->travel = NULL;
-	dir->nb_file = 0;
 	dir->nb_file_a = 0;
 	dir->check_opt = 0;
 	dir->check_travel = 0;
@@ -31,7 +30,7 @@ void		ft_init(t_dir *dir, t_param *param, t_args *args)
 	dir->t_init = time(NULL);
 	ft_init_param(param);
 	args->l = 0;
-	args->R = 0;
+	args->recurs = 0;
 	args->a = 0;
 	args->r = 0;
 	args->t = 0;
@@ -72,11 +71,12 @@ void		ft_init_param(t_param *param)
 	param->block = 0;
 }
 
-char 		***tab_init(t_dir *dir)
+char		***tab_init(t_dir *dir)
 {
-	int 	i;
-	int 	j;
-	char 	***tab;
+	int		i;
+	int		j;
+	char	***tab;
+
 	i = 0;
 	tab = (char ***)malloc(sizeof(char **) * (dir->nb_file_a + 1));
 	while (i < dir->nb_file_a)

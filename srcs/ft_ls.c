@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/ft_ls.h"
+#include "../includes/ft_ls.h"
 
 int			main(int argc, char **argv)
 {
 	t_dir	dir;
 	t_param	param;
 	t_args	args;
-	
+
 	ft_init(&dir, &param, &args);
 	if (argc > 1)
 		ft_init_args(&args, argv, argc, &dir);
